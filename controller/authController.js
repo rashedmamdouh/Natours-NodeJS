@@ -45,7 +45,7 @@ exports.signUp=async(req,res,next)=>{
     try{
         const newUser = await User.create(req.body);
         const url = `${req.protocol}://${req.get('host')}/me`;
-        console.log(url);
+        //console.log(url);
         await new Email(newUser, url).sendWelcome();
         
         

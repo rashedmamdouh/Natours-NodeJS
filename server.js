@@ -6,7 +6,7 @@ const devdata=require('./dev-data/data/import-dev-data.js')
 
 let port=process.env.port;
 const server=app.listen(port,()=>{
-    console.log("Server is running on port 3000");
+    //console.log("Server is running on port 3000");
     //devdata.deleteData()
     // devdata.importData()
 })

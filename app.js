@@ -14,6 +14,8 @@ const path=require('path');
 const viewRouter=require('./Routers/viewsRouter');
 const bookingRouter=require('./Routers/bookingRouter');
 const cookieParser=require('cookie-parser')
+const compression=require('compression')
+
 
 //Using app.use()
 //add Express middleware to modify incoming data from request (Middleware between request and respond ) 
@@ -64,7 +66,7 @@ mongoose.connect(process.env.LOCAL_DB)
 
 
 //Environment Variables
-console.log("Environment :" ,process.env.NODE_ENV)
+//console.log("Environment :" ,process.env.NODE_ENV)
 
 // if(process.env.NODE_ENV==='development'){
 //     app.use(morgan("dev"))
@@ -82,7 +84,7 @@ app.use((req,res,next)=>{
     next();
 })*/
 
-
+app.use(compression())
 // Test middleware
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();

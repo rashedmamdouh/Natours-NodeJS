@@ -21,6 +21,7 @@ const compression=require('compression')
 //add Express middleware to modify incoming data from request (Middleware between request and respond ) 
 const app=express();
 
+app.enable('trust proxy')
 //PUG VIEWS SETUP
 app.set('view engine','pug');
 app.set(path.join(__dirname,'views'));

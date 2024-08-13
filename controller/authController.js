@@ -13,13 +13,13 @@ const loginToken=id=>{
 }
 
 //Create JWT token (as Session carry the information of the user) to send to the user 
-const createSendToken=(user,statusCode,res)=>{
+const createSendToken=(user,statusCode,req,res)=>{
     const token=loginToken(user._id)
     const cookieOptions ={
         expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN *24*60*60*1000),
         httpOnly:true,
+        secure:req.secure || req.headers['x-forwarded-proto']==='https'
              }
-    if(process.env.NODE_ENV==="production") cookieOptions.secure=true;
     user.password=undefined //Hide the user from shown in the return
     res.cookie('jwt',token,cookieOptions)
     res.status(statusCode).json({
@@ -49,7 +49,7 @@ exports.signUp=async(req,res,next)=>{
         await new Email(newUser, url).sendWelcome();
         
         
-        createSendToken(newUser,201,res)
+        createSendToken(newUser,201,req,res)
 }   catch (err) {
             next(new appError(err.message, 500));
           }
@@ -68,7 +68,7 @@ exports.login=async(req,res,next)=>{
         if(!user || !(await user.correctPassword(password,user.password))){
             return next(new appError("Incorrect Email or Password !", 404));
         }
-        createSendToken(user,200,res)
+        createSendToken(user,200,req,res)
 
 }   catch (err) {
             return next(new appError(err.message, 500));
@@ -217,7 +217,7 @@ exports.restrictTo=(...roles)=>{
             user.encryptedResetTokenExp=undefined
             await user.save();
 
-            createSendToken(user,200,res)
+            createSendToken(user,200,req,res)
 
     }   catch (err) {
                 return next(new appError(err.message, 500));
@@ -243,7 +243,7 @@ exports.restrictTo=(...roles)=>{
             user.confirmPassword=req.body.confirmPassword
             await user.save()
 
-            createSendToken(user,200,res)
+            createSendToken(user,200,req,res)
             
         }catch(err){
             return next(new appError(err.message, 500));

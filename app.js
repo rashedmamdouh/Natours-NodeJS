@@ -60,8 +60,8 @@ app.use('/api',limiter)
 // mongoose.connect(process.env.LOCAL_DB)
 // .then(()=>{console.log("Mongoose Connection Successfull")});
 
-//const DB=process.env.DATABASE.replace("<PASSWORD>",process.env.DATABASE_PASSWORD);
-mongoose.connect(process.env.LOCAL_DB)
+const DB=process.env.DATABASE.replace("<PASSWORD>",process.env.DATABASE_PASSWORD);
+mongoose.connect(DB)
 .then(()=>{console.log("Mongoose Connection Successfull")})
 
 

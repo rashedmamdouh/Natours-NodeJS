@@ -35,7 +35,7 @@ Natours NodeJS is a robust web application designed to help users discover and b
 4. **Set Up Environment Variables:**
    Create a `.env` file in the root directory and configure the required environment variables. Example:
    ```plaintext
-   DB_URI=mongodb://localhost:27017/natours
+   DB_URI=mongodb://localhost:3000/natours
    JWT_SECRET=your_jwt_secret
    STRIPE_SECRET_KEY=your_stripe_secret_key
    ```

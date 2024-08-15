@@ -13,7 +13,7 @@ html
             //- meta(http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'")
 
 
-    body 
+    body(data-alert=`${alert ? alert : ''}`)
         //Header
         include _header
         //Content

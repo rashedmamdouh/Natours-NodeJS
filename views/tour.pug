@@ -67,8 +67,21 @@ block content
                 img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i+1}`,
                 class=`picture-box__img--${i+1}`)
 
-    section.section-map
-        #map(data-locations=`${JSON.stringify(tour.locations)}`)
+    //- section.section-map
+    //-     #map(data-locations=`${JSON.stringify(tour.locations)}`)
+
+    section.section-cta
+        .cta
+            .cta__img.cta__img--logo
+                img.cta__img.cta__img--1(src=`/img/review1.png`, alt='Review Picture')
+                img.cta__img.cta__img--2(src=`/img/review2.png`, alt='Review Picture')
+            .cta__content
+                    h2.heading-secondary What about make a review ?
+                    if user
+                        a.btn.btn--green.span-all-rows(href=`/createReview/${tour.id}`) Add New Review Now
+                    else 
+                        a.btn.btn--green.span-all-rows(href='/login') SignUp Login to add your Review
+
 
     section.section-reviews
         .reviews

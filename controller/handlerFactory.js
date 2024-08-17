@@ -22,10 +22,12 @@ exports.deleteOne=Model=>
 exports.createOne=Model=>
     async(req,res,next)=>{
         try{
+       // console.log(req.body.user,req.body.tour)
         const doc=await Model.create(req.body);
         res.status(201).json({
             status:'success',
-            message:"New Creation occured Successfully"
+            message:"New Creation occured Successfully",
+            data:doc
         })
     } catch (err) {
         next(new appError(err.message, 404));
@@ -57,7 +59,7 @@ exports.getOne=(Model,popOptions)=>
                     return next(new appError("User NotExist",404));
                     }
                 res.status(200).json({
-                    status: 'Success',
+                    status: 'success',
                     message:doc
                 });
             } catch (err) {

@@ -1,31 +1,28 @@
 doctype html
-html 
-    head    
+html
+    head
         block head
-            title Natours | #{title}
+            meta(charset='UTF-8')
+            meta(name='viewport' content='width=device-width, initial-scale=1.0')
             link(rel='stylesheet' href='/css/style.css')
             link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
             link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
-            link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
-            meta(name='viewport' content='width=device-width, initial-scale=1.0')
-            meta(charset='UTF-8')
-            
-            //- meta(http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'")
-
+            title Natours | #{title}
+           
 
     body(data-alert=`${alert ? alert : ''}`)
-        //Header
+        // HEADER
         include _header
-        //Content
+
+        // CONTENT
         block content
-            h1 This is the base view
-        //Footer
+            h1 This is a placeholder heading
+
+        // FOOTER
         include _footer
 
         //- script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js')
-        //- script(src='/js/mapBox.js')
+        //- script(src='/js/mapbox.js')
         //- script(src='/js/login.js')
-        script(src="https://js.stripe.com/v3/")
-        script(src='/js/bundle.js')   
-        //- bundle all javascrip files 
-        
+        script(src='https://js.stripe.com/v3/')
+        script(src='/js/bundle.js')

@@ -1,0 +1,97 @@
+extends base
+
+block append head
+  style
+    | .main {
+    |   display: flex;
+    |   flex-direction: column;
+    |   align-items: center;
+    |   padding: 2rem;
+    | }
+    | 
+    | .signup-form, .review-form {
+    |   width: 100%;
+    |   max-width: 600px;
+    |   background: #f9f9f9;
+    |   padding: 2rem;
+    |   border-radius: 8px;
+    |   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    |   margin-bottom: 2rem;
+    | }
+    | 
+    | .heading-secondary {
+    |   font-size: 1.5rem;
+    |   color: #333;
+    |   margin-bottom: 1rem;
+    | }
+    | 
+    | .form__group {
+    |   margin-bottom: 1rem;
+    | }
+    | 
+    | .form__label {
+    |   display: block;
+    |   font-weight: bold;
+    |   margin-bottom: 0.5rem;
+    | }
+    | 
+    | .form__input {
+    |   width: 100%;
+    |   padding: 0.75rem;
+    |   border: 1px solid #ddd;
+    |   border-radius: 4px;
+    |   box-sizing: border-box;
+    | }
+    | 
+    | .form__input[type="textarea"] {
+    |   resize: vertical;
+    | }
+    | 
+    | .btn {
+    |   display: inline-block;
+    |   padding: 0.75rem 1.5rem;
+    |   border: none;
+    |   border-radius: 4px;
+    |   color: #fff;
+    |   font-size: 1rem;
+    |   cursor: pointer;
+    |   text-align: center;
+    | }
+    | 
+    | .btn--blue {
+    |   background: #007bff;
+    | }
+    | 
+    | .btn--green {
+    |   background: #28a745;
+    | }
+    | 
+    | .btn:hover {
+    |   opacity: 0.9;
+    | }
+    | 
+    | .ma-bt-lg {
+    |   margin-bottom: 2rem;
+    | }
+    | 
+    | .ma-bt-md {
+    |   margin-bottom: 1.5rem;
+    | }
+block content
+  main.main
+    .review-form
+      h2.heading-secondary.ma-bt-lg Write a Review
+      form.form.form--review
+        .form__group
+          label.form__label(for='review') Review
+          textarea#review.form__input(name='review', rows='4', placeholder='Write your review here...')
+        .form__group
+          label.form__label(for='rating') Rating
+          select#rating.form__input(name='rating')
+            option(value='1') 1
+            option(value='2') 2
+            option(value='3') 3
+            option(value='4') 4
+            option(value='5') 5
+        .form__group
+          button.btn.btn--green(type='submit') Submit Review

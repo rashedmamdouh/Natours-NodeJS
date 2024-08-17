@@ -71,7 +71,23 @@ app.options('*', cors()); //For Non Simple Requests
 
 
 //set security HTTP headers
-app.use( helmet({ contentSecurityPolicy: false }) );
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "https://js.stripe.com", "'unsafe-inline'", "'unsafe-eval'"],
+    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    styleSrcElem: ["'self'", "https://fonts.googleapis.com"],
+    imgSrc: ["'self'", "data:"],
+    connectSrc: ["'self'", "https://api.stripe.com", "ws:", "wss:"],
+    fontSrc: ["'self'", "https://fonts.gstatic.com"],
+    frameSrc: ["'self'", "https://js.stripe.com"],
+    objectSrc: ["'none'"],
+    baseUri: ["'self'"],
+  },
+}));
+
+
+
 //Parse the data from the body to req.body
 app.use(express.json({
     limit:'10kb'
@@ -86,12 +102,12 @@ app.use(mongoSanitize())
 app.use(xssClean())
 //Prevent parameter pollution
 app.use(hpp());
-const limiter=rateLimit({
-    max:100,
-    windowMs:60*60*1000, //max 100 request from the same IP in one hour
-    message: "Too much request from this IP try again in one hour !"
-})
-app.use('/api',limiter)
+// const limiter=rateLimit({
+//     max:100,
+//     windowMs:60*60*1000, //max 100 request from the same IP in one hour
+//     message: "Too much request from this IP try again in one hour !"
+// })
+// app.use('/api',limiter)
 //Serving Static files
 app.use(express.static(path.join(__dirname,'public')))
 

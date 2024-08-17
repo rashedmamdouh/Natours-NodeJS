@@ -3,6 +3,7 @@ const Booking=require('../Models/bookingModel');
 const stripe=require('stripe')(process.env.STRIPE_SECRET_KEY);
 const handlerFactory=require('../controller/handlerFactory')
 
+
 exports.getCheckoutSession=async(req,res,next)=>{
     //1) Get the currently booked tour 
     const tour=await Tour.findById(req.params.tourId)
@@ -52,6 +53,8 @@ exports.createBookingCheckout =async (req, res, next) => {
     console.log(err);
 }
 }
+
+
 
 
 exports.getBooking = handlerFactory.getOne(Booking);

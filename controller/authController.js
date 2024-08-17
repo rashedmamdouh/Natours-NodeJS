@@ -4,6 +4,9 @@ const jwt=require('jsonwebtoken')
 const {promisify}=require('util')
 const Email=require('../utils/email')
 const crypto=require('crypto');
+const Review=require('../Models/reviewModel');
+const Booking=require('../Models/bookingModel');
+const Tour=require('../Models/tourModel');
 
 
 
@@ -23,7 +26,7 @@ const createSendToken=(user,statusCode,req,res)=>{
     user.password=undefined //Hide the user from shown in the return
     res.cookie('jwt',token,cookieOptions)
     res.status(statusCode).json({
-        status:'Success',
+        status:'success',
         token,
     data:{
         user
@@ -43,7 +46,12 @@ res.status(200).json({
 
 exports.signUp=async(req,res,next)=>{
     try{
-        const newUser = await User.create(req.body);
+        const newUser = await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword
+          });
         const url = `${req.protocol}://${req.get('host')}/me`;
         //console.log(url);
         await new Email(newUser, url).sendWelcome();
@@ -63,11 +71,14 @@ exports.login=async(req,res,next)=>{
         if(!email||!password){
             return next(new appError("UserName and Password are must", 404))
         }
+        
         //2)Check the User Existence
         const user=await User.findOne({email}).select('+password');
+        console.log(await user.correctPassword(password,user.password))
         if(!user || !(await user.correctPassword(password,user.password))){
             return next(new appError("Incorrect Email or Password !", 404));
         }
+        
         createSendToken(user,200,req,res)
 
 }   catch (err) {
@@ -149,7 +160,6 @@ exports.login=async(req,res,next)=>{
             
             // THERE IS A LOGGED IN USER
             res.locals.user = currentUser; //Add to the locals to be accesed directly in pug files
-            
             return next();
             } catch (err) {
                 return next();
@@ -188,7 +198,7 @@ exports.restrictTo=(...roles)=>{
 
             
             res.status(200).json({
-            status:"Success",
+            status:"success",
             message:"Token sent to your Email"
             })
     }   catch (err) {
@@ -249,6 +259,35 @@ exports.restrictTo=(...roles)=>{
             return next(new appError(err.message, 500));
         }
     }
+    
 
+    exports.isAllowedToReview = async (req, res, next) => {
+        try {
+            const userBookings = await Booking.find({ user: req.user.id });
+            const userReviews = await Review.find({ user: req.user.id });
+            const tour = await Tour.findById(req.params.tourId);
+            let success=false;
+            // Use for...of to allow early exit
+            for (const book of userBookings) {
+                //check if the user purchase in this tour
+                if (book.tour.id===req.params.tourId) {
+                   success=true;
+                }
+            }
+            if(!success)return next(new appError("Please Book this Tour First", 404));
 
+            //check if the user made a review for the same tour
+            for (const review of userReviews) {
+                if ((review.tour.id)===(req.params.tourId)) {
+                    sucess=false;
+                    return next(new appError("Sorry! You Reviewed This Tour Before", 404));
+                }
+            }
+            if(tour.startDates[0]<Date.now())return next();
+
+            next(new appError(err.message, 500));
+        } catch (err) {
+            next(new appError(err.message, 500));
+        }
+    };
     

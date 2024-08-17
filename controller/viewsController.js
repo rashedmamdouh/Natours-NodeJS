@@ -53,6 +53,16 @@ exports.getLoginForm=async(req,res)=>{
     }
 }
 
+exports.getSignUpForm=async(req,res)=>{
+    try{
+        res.status(200).render('signup')
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
 exports.getAccount=async(req,res)=>{
     try{
         res.status(200).render('account',{
@@ -97,6 +107,16 @@ exports.getMyTours=async(req,res,next)=>{
             title:"My Tours",
             tours
             })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+exports.getReviewForm=async(req,res)=>{
+    try{
+        res.status(200).render('createReview')
     }catch(err){
         return res.status(400).render('error',{
             msg:err.message

@@ -1,8 +1,8 @@
 extends base
 
 block append head
-    
-   
+    // Add any additional styles or scripts here if needed
+
 block content
     // Define the overviewBox mixin
     mixin overviewBox(label, text, icon)
@@ -13,6 +13,7 @@ block content
             span.overview-box__text= text
 
     section.section-header
+    
         .header__hero
             .header__hero-overlay &nbsp;
             img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
@@ -29,6 +30,14 @@ block content
                     svg.heading-box__icon
                         use(xlink:href='/img/icons.svg#icon-map-pin')
                     span.heading-box__text= tour.startLocation.description
+            
+                button.fav-btn(data-tour-Id=`${tour.id}`)
+                    svg.fav-icon
+                        use(xlink:href='/img/icons.svg#icon-heart')
+                    span.fav-text Add to Favorites
+
+
+
 
     section.section-description
         .overview-box
@@ -60,15 +69,15 @@ block content
             - const paragraphs=tour.description.split('\n')
             each p in paragraphs
                 p.description__text=p
-            
+
     section.section-pictures
         each img, i in tour.images
             .picture-box
                 img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i+1}`,
                 class=`picture-box__img--${i+1}`)
 
-    //- section.section-map
-    //-     #map(data-locations=`${JSON.stringify(tour.locations)}`)
+    // section.section-map
+    // #map(data-locations=`${JSON.stringify(tour.locations)}`)
 
     section.section-cta
         .cta
@@ -76,12 +85,11 @@ block content
                 img.cta__img.cta__img--1(src=`/img/review1.png`, alt='Review Picture')
                 img.cta__img.cta__img--2(src=`/img/review2.png`, alt='Review Picture')
             .cta__content
-                    h2.heading-secondary What about make a review ?
-                    if user
-                        a.btn.btn--green.span-all-rows(href=`/createReview/${tour.id}`) Add New Review Now
-                    else 
-                        a.btn.btn--green.span-all-rows(href='/login') SignUp Login to add your Review
-
+                h2.heading-secondary What about make a review?
+                if user
+                    a.btn.btn--green.span-all-rows(href=`/createReview/${tour.id}`) Add New Review Now
+                else 
+                    a.btn.btn--green.span-all-rows(href='/login') SignUp Login to add your Review
 
     section.section-reviews
         .reviews

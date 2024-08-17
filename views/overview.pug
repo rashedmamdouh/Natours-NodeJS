@@ -30,6 +30,8 @@ block content
                             svg.card__icon
                                 use(xlink:href='/img/icons.svg#icon-user')
                             span=`${tour.maxGroupSize} People`
+                        
+                            
 
                     .card__footer
                         p
@@ -41,5 +43,7 @@ block content
                             | 
                             span.card__footer-text=`Rating (${tour.ratingsQuantity})`
                         a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
+
+                        
 
 

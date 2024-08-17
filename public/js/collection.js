@@ -80,11 +80,32 @@ export const createReview=async(review,rating,tour)=>{
   if (result.data.status === "success") {
     showAlert("success", "Review Added Successfully");
     window.setTimeout(() => {
-      window.history.back(); // Redirects to the previous page
+      location.assign('/my-reviews') // Redirects to the previous page
     }, 1500);
   }  
 }catch(err){
   showAlert('error',err.response.data.message)
 }
 }
+
+
+export const Favourite=async(tourId,type)=>{
+  try{
+    const url=
+     type==='add'? 
+    `/api/v1/tours/addtofav/${tourId}` :
+    `/api/v1/tours/removefromfav/${tourId}`
+
+    const result =await axios({
+      method: 'POST',
+      url: url
+  })
+  if (result.data.status === "success") {
+    showAlert("success", `Favourite Tour ${type} Successfully `);
+  }  
+}catch(err){
+  showAlert('error',err.response.data.message)
+}
+}
+
 

@@ -1,6 +1,9 @@
 const Tour=require('../Models/tourModel');
 const User=require('../Models/userModel');
 const Booking=require('../Models/bookingModel');
+const Favourite=require('../Models/favToursModel');
+const Review=require('../Models/reviewModel');
+
 
 exports.alerts = (req, res, next) => {
     const { alert } = req.query;
@@ -12,7 +15,17 @@ exports.alerts = (req, res, next) => {
 
 exports.getOverview=async (req,res)=>{
     try{
-    const tours=await Tour.find()
+        let filterObj={};
+        if(req.user){
+            const userBookings=await Booking.find({user:req.user.id})
+            const ids=[];
+            userBookings.map(el=>{
+                ids.push(el.tour.id)
+            })
+            filterObj={_id:{$nin:ids}}
+        }
+        // console.log(filterObj)
+    const tours=await Tour.find(filterObj)
     return res.status(200).render('overview',{
         title:"All Tours",
         tours:tours
@@ -117,6 +130,45 @@ exports.getMyTours=async(req,res,next)=>{
 exports.getReviewForm=async(req,res)=>{
     try{
         res.status(200).render('createReview')
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+
+exports.getMyFavs=async(req,res,next)=>{
+    try{
+        const favs=await Favourite.find({
+            user:req.user.id
+        })
+        tourIds=[];
+        favs.forEach(el=>{
+            tourIds.push(el.tour)
+        })
+        const tours=await Tour.find({ _id: { $in: tourIds } });
+        res.status(200).render('overview',{
+            title:"My WhishList",
+            tours
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+
+exports.getMyReviews=async(req,res,next)=>{
+    try{
+        const reviews=await Review.find({
+            user:req.user.id
+        })
+        res.status(200).render('myReviews',{
+            title:"My Reviews",
+            reviews
+            })
     }catch(err){
         return res.status(400).render('error',{
             msg:err.message

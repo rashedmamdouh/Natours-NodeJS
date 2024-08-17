@@ -2,6 +2,8 @@ const express = require("express");
 const tourController = require("../controller/tourController");
 const authController=require("../controller/authController")
 const reviewRouter=require("../Routers/reviewRouter")
+const favController=require('../controller/favContoller');
+
 
 const router = express.Router();
 
@@ -34,5 +36,9 @@ router.route("/tours-within/:distance/center/:latlng/unit/:unit")
 
 router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
 
+
+router.post('/addtofav/:tourId', authController.protect, favController.addToFav); 
+router.post('/removefromfav/:tourId', authController.protect, favController.removeFromFav); 
+router.get('/:tourId/favorite-status',authController.isLoggedIn, favController.checkFavoriteStatus);
 
 module.exports = router;

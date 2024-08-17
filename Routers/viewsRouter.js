@@ -19,4 +19,19 @@ router.get(
     authController.protect,
     viewsController.getMyTours
   );
+
+router.get(
+    '/my-fav',
+    authController.protect,
+    viewsController.getMyFavs
+  );
+
+  router.get(
+    '/my-reviews',
+    authController.protect,
+    viewsController.getMyReviews
+  );
+
+
+
 module.exports=router;

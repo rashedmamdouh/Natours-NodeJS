@@ -201,6 +201,8 @@ body {
   /*Add later when we use this for the button in form*/
   border: none;
   cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .btn:hover {
@@ -609,7 +611,7 @@ body {
   scroll-snap-type: x mandatory;
 }
 .reviews__card {
-  width: 30rem;
+  width: 40rem;
   padding: 4rem;
   background-color: #f7f7f7;
   border-radius: 3px;
@@ -1321,4 +1323,84 @@ body {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
+}
+
+
+/* Add this CSS to your stylesheet */
+
+/* Section Header Styling */
+.header__actions {
+  display: flex;
+  justify-content: flex-end; /* Align button to the right */
+  margin-bottom: 1rem; /* Space between the button and content below */
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 2rem;
+  color: white; /* Default color for the heart icon and text */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.fav-btn:hover, .fav-btn:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.fav-icon {
+  width: 24px; /* Adjust icon size */
+  height: 24px;
+  fill: currentColor; /* Use current text color for the icon */
+  margin-right: 0.5rem; /* Space between icon and text */
+}
+
+/* Active state for the button */
+.fav-btn.active {
+  color: red; /* Change color to red when active */
+}
+
+/* Optional: Add some hover effect for better user experience */
+.fav-btn:hover {
+  color: red; /* Change color to red when hovered */
+}
+
+/* Default style for the heart button */
+.fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  fill: #ccc; /* Default color of the heart */
+  transition: fill 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Style when the heart is clicked (active) */
+.fav-btn.active {
+  fill: red; /* Color when the heart is active */
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.fav-btn svg {
+  fill: #333; /* Default color */
+}
+
+.fav-btn.active svg {
+  fill: red; /* Color when active */
+}
+
+.tt{
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin-left: 650px;
 }

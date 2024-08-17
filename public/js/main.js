@@ -1,4 +1,4 @@
-import {login, logout, signup,createReview} from './collection'
+import {login, logout, signup,createReview,Favourite} from './collection'
 import {updateSettings} from './updateSettings'
 import {bookTour} from './stripe'
 import {showAlert} from './alert'
@@ -10,8 +10,8 @@ const logoutBtn=document.querySelector('.nav__el--logout');
 const updateUserDataform=document.querySelector('.form--update-user-data');
 const updateUserPassform=document.querySelector('.form--update-user-password');
 const reviewForm=document.querySelector('.form--review');
+const favBtn=document.querySelector('.fav-btn');
 const bookBtn=document.getElementById('book-tour');
-
 
 
 
@@ -89,3 +89,27 @@ if(reviewForm){
         createReview(review,rating,tourId)
 })
 }
+
+
+if (favBtn) {
+    const tourId = favBtn.dataset.tourId;
+    document.addEventListener('DOMContentLoaded', () => {
+    fetch(`/api/v1/tours/${tourId}/favorite-status`)
+        .then(response => response.json())
+        .then(data => {
+            data.isFavorited===true? favBtn.classList.add('active') : favBtn.classList.remove('active');
+        })
+})
+
+    favBtn.addEventListener('click', async e => { 
+        if (favBtn.classList.contains('active')) {
+            await Favourite(tourId, 'remove'); // Call API to remove from favorites
+            favBtn.classList.remove('active'); // Update UI
+            favBtn.textContent = 'Add to Favorites';
+          } else {
+            await Favourite(tourId, 'add'); // Call API to add to favorites
+            favBtn.classList.add('active'); // Update UI
+            favBtn.textContent = 'Remove from Favorites';
+          }    
+         })
+    }

@@ -37,5 +37,12 @@ bookingSchema.pre(/^find/,function(next){
     next();
 })
 
+//One Book for the user to specific tour
+bookingSchema.index({user:1,tour:1},{unique:true});
+
+
+
+
+
 const Booking=mongoose.model('Booking',bookingSchema);
 module.exports = Booking;

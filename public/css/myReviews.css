@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+  }
+  .review-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: transform 0.3s;
+  }
+  .review-card:hover {
+    transform: translateY(-5px);
+  }
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .tour-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007BFF;
+  }
+  .review-date {
+    font-size: 14px;
+    color: #666;
+  }
+  .review-content {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  .rating {
+    color: #FFD700;
+  }
+  .rating i {
+    margin-right: 5px;
+  }

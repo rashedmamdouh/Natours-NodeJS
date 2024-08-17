@@ -41,10 +41,10 @@ const reviewSchema = new mongoose.Schema(
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: "tour",
-    select: "name ratingsAverage", // Select only the name and ratingsAverage fields
+    select: "name ratingsAverage slug imageCover", // Select only the name and ratingsAverage fields
   }).populate({
     path: "user",
-    select: "name photo",
+    select: "name photo email",
   });
   next();
 });

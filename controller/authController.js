@@ -74,7 +74,7 @@ exports.login=async(req,res,next)=>{
         
         //2)Check the User Existence
         const user=await User.findOne({email}).select('+password');
-        console.log(await user.correctPassword(password,user.password))
+        //console.log(await user.correctPassword(password,user.password))
         if(!user || !(await user.correctPassword(password,user.password))){
             return next(new appError("Incorrect Email or Password !", 404));
         }
@@ -138,7 +138,7 @@ exports.login=async(req,res,next)=>{
             
         }
 
-        //For All Requests
+        //For All Requests give identity
     exports.isLoggedIn = async (req, res, next) => {
         if (req.cookies.jwt) {
             try {
@@ -160,6 +160,7 @@ exports.login=async(req,res,next)=>{
             
             // THERE IS A LOGGED IN USER
             res.locals.user = currentUser; //Add to the locals to be accesed directly in pug files
+            req.user = currentUser;
             return next();
             } catch (err) {
                 return next();
@@ -290,4 +291,15 @@ exports.restrictTo=(...roles)=>{
             next(new appError(err.message, 500));
         }
     };
-    
+
+    exports.BookedBefore=async(req,res,next)=>{
+        const { tourId } = req.params;
+        const userBookings = await Booking.find({ user: req.user.id });
+        const alreadyBooked = userBookings.some(el => el.tour.id === tourId);
+        if (alreadyBooked) {
+            return res.status(403).render('error', {
+                msg: 'You have already booked this tour!'
+            });
+        }
+        next();
+    }

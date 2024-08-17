@@ -1,4 +1,4 @@
-import {login, logout, signup,createReview,Favourite} from './collection'
+import {login, logout, signup,Review,Favourite} from './collection'
 import {updateSettings} from './updateSettings'
 import {bookTour} from './stripe'
 import {showAlert} from './alert'
@@ -12,6 +12,7 @@ const updateUserPassform=document.querySelector('.form--update-user-password');
 const reviewForm=document.querySelector('.form--review');
 const favBtn=document.querySelector('.fav-btn');
 const bookBtn=document.getElementById('book-tour');
+
 
 
 
@@ -81,14 +82,23 @@ if (alertMessage) showAlert('success', alertMessage, 20);
 if(reviewForm){
     reviewForm.addEventListener('submit',async e => {
         e.preventDefault();
+
+        const type=(window.location.pathname.split('/')[1]==='reviewUpdateForm')? 'update':'create'
+
         const review=document.getElementById('review').value;
         const rating=document.getElementById('rating').value;
         const urlParts = window.location.pathname.split('/');
-        const tourId= urlParts[urlParts.length - 1]; // Get the last part of the path
+        const Id= urlParts[urlParts.length - 1]; // Get the last part of the path
 
-        createReview(review,rating,tourId)
+        if(type==='update'){
+        Review(review,rating,Id,'update') //Id===>ReviewId
+        }else{
+        Review(review,rating,Id,'create')//Id===>TourId
+        }
 })
 }
+
+
 
 
 if (favBtn) {

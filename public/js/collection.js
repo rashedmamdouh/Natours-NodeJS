@@ -66,19 +66,29 @@ export const signup=async(name,email,password,confirmPassword)=>{
 }
 
 
-export const createReview=async(review,rating,tour)=>{
+export const Review=async(review,rating,id,type)=>{
   try{
-    const result =await axios({
-      method: 'POST',
-      url: '/api/v1/reviews',
-      data:{
+    const url=
+    type==='create'? 
+      `/api/v1/reviews/createReview/${id}`
+      : `/api/v1/reviews/${id}`
+
+      const data = {
         review,
         rating,
-        tour
-    }
+      };
+  
+      if (type === 'create') {
+        data.tour = id;
+      }
+    const result =await axios({
+      method: 'POST',
+      url,
+      data
   })
+  console.log(url,result)
   if (result.data.status === "success") {
-    showAlert("success", "Review Added Successfully");
+    showAlert("success", `Review ${type} Successfully`);
     window.setTimeout(() => {
       location.assign('/my-reviews') // Redirects to the previous page
     }, 1500);

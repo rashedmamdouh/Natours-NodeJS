@@ -271,10 +271,12 @@ exports.restrictTo=(...roles)=>{
             // Use for...of to allow early exit
             for (const book of userBookings) {
                 //check if the user purchase in this tour
+                // console.log(book.tour.id,req.params.tourId)
                 if (book.tour.id===req.params.tourId) {
                    success=true;
                 }
             }
+            
             if(!success)return next(new appError("Please Book this Tour First", 404));
 
             //check if the user made a review for the same tour

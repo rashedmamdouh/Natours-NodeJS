@@ -12592,7 +12592,7 @@ var showAlert = exports.showAlert = function showAlert(type, msg) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signup = exports.logout = exports.login = exports.createReview = exports.Favourite = void 0;
+exports.signup = exports.logout = exports.login = exports.Review = exports.Favourite = void 0;
 require("core-js/modules/es6.array.copy-within.js");
 require("core-js/modules/es6.array.fill.js");
 require("core-js/modules/es6.array.filter.js");
@@ -12848,44 +12848,49 @@ var signup = exports.signup = /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }();
-var createReview = exports.createReview = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(review, rating, tour) {
-    var result;
+var Review = exports.Review = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(review, rating, id, type) {
+    var url, data, result;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
-          _context4.next = 3;
+          url = type === 'create' ? "/api/v1/reviews/createReview/".concat(id) : "/api/v1/reviews/".concat(id);
+          data = {
+            review: review,
+            rating: rating
+          };
+          if (type === 'create') {
+            data.tour = id;
+          }
+          _context4.next = 6;
           return (0, _axios.default)({
             method: 'POST',
-            url: '/api/v1/reviews',
-            data: {
-              review: review,
-              rating: rating,
-              tour: tour
-            }
+            url: url,
+            data: data
           });
-        case 3:
+        case 6:
           result = _context4.sent;
+          console.log(url, result);
           if (result.data.status === "success") {
-            (0, _alert.showAlert)("success", "Review Added Successfully");
+            (0, _alert.showAlert)("success", "Review ".concat(type, " Successfully"));
             window.setTimeout(function () {
               location.assign('/my-reviews'); // Redirects to the previous page
             }, 1500);
           }
-          _context4.next = 10;
+          _context4.next = 14;
           break;
-        case 7:
-          _context4.prev = 7;
+        case 11:
+          _context4.prev = 11;
           _context4.t0 = _context4["catch"](0);
           (0, _alert.showAlert)('error', _context4.t0.response.data.message);
-        case 10:
+        case 14:
         case "end":
           return _context4.stop();
       }
-    }, _callee4, null, [[0, 7]]);
+    }, _callee4, null, [[0, 11]]);
   }));
-  return function createReview(_x7, _x8, _x9) {
+  return function Review(_x7, _x8, _x9, _x10) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -12919,7 +12924,7 @@ var Favourite = exports.Favourite = /*#__PURE__*/function () {
       }
     }, _callee5, null, [[0, 8]]);
   }));
-  return function Favourite(_x10, _x11) {
+  return function Favourite(_x11, _x12) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -13255,17 +13260,22 @@ if (alertMessage) (0, _alert.showAlert)('success', alertMessage, 20);
 if (reviewForm) {
   reviewForm.addEventListener('submit', /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-      var review, rating, urlParts, tourId;
+      var type, review, rating, urlParts, Id;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             e.preventDefault();
+            type = window.location.pathname.split('/')[1] === 'reviewUpdateForm' ? 'update' : 'create';
             review = document.getElementById('review').value;
             rating = document.getElementById('rating').value;
             urlParts = window.location.pathname.split('/');
-            tourId = urlParts[urlParts.length - 1]; // Get the last part of the path
-            (0, _collection.createReview)(review, rating, tourId);
-          case 6:
+            Id = urlParts[urlParts.length - 1]; // Get the last part of the path
+            if (type === 'update') {
+              (0, _collection.Review)(review, rating, Id, 'update'); //Id===>ReviewId
+            } else {
+              (0, _collection.Review)(review, rating, Id, 'create'); //Id===>TourId
+            }
+          case 7:
           case "end":
             return _context2.stop();
         }
@@ -13345,7 +13355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55688" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53964" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

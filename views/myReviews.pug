@@ -14,3 +14,4 @@ block content
               svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active':'inactive'}`)
                 use(xlink:href='/img/icons.svg#icon-star')
           a.btn.btn--green.span-all-rows(href=`/tour/${review.tour.slug}`) See The Tour
+          a.btn.btn--green.span-all-rows(href=`/reviewUpdateForm/${review.id}`) Update the Review

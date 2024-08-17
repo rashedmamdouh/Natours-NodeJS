@@ -9,7 +9,8 @@ router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
 router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignUpForm);
 router.get('/me', authController.protect, viewsController.getAccount);
-router.get('/createReview/:tourId', authController.protect,authController.isAllowedToReview, viewsController.getReviewForm);
+router.get('/ReviewForm/:tourId', authController.protect,authController.isAllowedToReview, viewsController.getReviewForm);
+router.get('/reviewUpdateForm/:tourId', authController.protect, viewsController.getReviewForm);
 
 router.post('/submit-user-data', authController.protect, viewsController.submitUserData);
 

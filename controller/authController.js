@@ -133,6 +133,9 @@ exports.restrictTo=(...roles)=>{
             await user.save()
 
             createSendToken(user,200,req,res)
+            res.status(200).json({
+                status:'success'
+            })
             
         }catch(err){
             return next(new appError(err.message, 500));

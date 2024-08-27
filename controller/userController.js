@@ -54,7 +54,7 @@ exports.uploadUserFile=upload.single('photo')
 
 //Image Preprocessing then Desk Storage
 exports.resizeUserPhoto=async(req,res,next)=>{
-  if(!req.body) return next();
+  if (!req.file) return next();
   req.file.filename=`user-${req.user.id}-${Date.now()}.jpeg`
 
   await sharp(req.file.buffer)  //Await to stop the excusion till this end

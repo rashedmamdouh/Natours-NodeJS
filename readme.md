@@ -35,9 +35,29 @@ Natours NodeJS is a robust web application designed to help users discover and b
 4. **Set Up Environment Variables:**
    Create a `.env` file in the root directory and configure the required environment variables. Example:
    ```plaintext
-   DB_URI=mongodb://localhost:3000/natours
-   JWT_SECRET=your_jwt_secret
-   STRIPE_SECRET_KEY=your_stripe_secret_key
+   # Application Environment
+NODE_ENV=production
+PORT=3000
+
+# Database Configuration
+DATABASE_PASSWORD=<YOUR_DATABASE_PASSWORD>
+DATABASE=mongodb+srv://<USERNAME>:<YOUR_DATABASE_PASSWORD>@cluster0.idbgphn.mongodb.net/Natrous?retryWrites=true&w=majority&appName=Cluster0
+
+# JWT Configuration
+JWT_SECRET_KEY=<YOUR_JWT_SECRET_KEY>
+JWT_EXPIRES_IN=90d
+JWT_COOKIE_EXPIRES_IN=90
+
+# Email Configuration
+EMAIL_USERNAME=<YOUR_EMAIL_USERNAME>
+EMAIL_PASSWORD=<YOUR_EMAIL_PASSWORD>
+EMAIL_HOST=<YOUR_EMAIL_HOST>
+EMAIL_PORT=<YOUR_EMAIL_PORT>
+EMAIL_FROM=<YOUR_EMAIL_FROM>
+
+# Stripe Configuration
+STRIPE_SECRET_KEY=<YOUR_STRIPE_SECRET_KEY>
+
    ```
 5. **Start the Server:**
    ```bash

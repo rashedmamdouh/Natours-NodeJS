@@ -1,0 +1,30 @@
+extends base
+
+block content
+    h1#reviews-header #{title} Management
+    table#reviews-table
+        thead
+            tr
+                th#review-header Review
+                th#rating-header Rating
+                th#tour-header Tour 
+                th#user-header User 
+                th#created-header Created At
+                th#actions-header Actions
+        tbody
+            each review in reviews
+                tr
+                    td
+                        textarea.form__input.formReview(id=`review-${review._id}`, data-review-id=review._id)= review.review
+                    td
+                        input.form__input(type='number', value=review.rating, id=`rating-${review._id}`, data-review-id=review._id, min=1, max=5)
+                    td
+                        input.form__input(type='text', value=review.tour.name, id=`tour-${review._id}`, data-review-id=review._id, readonly)
+                    td
+                        input.form__input(type='text', value=review.user.email, id=`user-${review._id}`, data-review-id=review._id, readonly)
+                    td
+                        input.form__input(type='text', value=review.createdAt.toISOString().substring(0, 10), id=`created-${review._id}`, data-review-id=review._id, readonly)
+                    td
+                        button.btn.review-save-button(data-review-id=`${review._id}`) Save 
+                        button.btn.review-delete-button(data-review-id=`${review._id}`) Delete
+

@@ -1,12 +1,9 @@
 
-const { request } = require('../app');
 const Tour=require('../Models/tourModel');
-const catchAsynch=require('../utils/catchAsynch');
 const appError=require('../appError')
-const errorController=require('../controller/errorController')
 const handlerFactory=require('../controller/handlerFactory')
-const multer=require('multer');
-const sharp=require('sharp');
+const multer = require('multer');
+const sharp = require('sharp');
 
 
 // Top-5-Cheap MiddleWare (Put in router to excuted befor getAllTours)
@@ -16,132 +13,6 @@ exports.top5Cheap=(req,res,next)=>{
     req.query.fields='name,price,ratingAverage,duration,difficulty,maxGroupSize';
     next();
 }
-
-//(127.0.0.1:3000/api/v1/tours?price[gte]=1200&sort=price,-ratingAverage&fields=name,duration,ratingAverage
-
-
-// exports.getTour=async(req,res,next)=>{
-// //const tour=await Tour.findOne({_id:req.params.id});
-//     try {
-//       // Execute the query and get the result
-//       const tour = await Tour.findById(req.params.id).populate("reviewsList");
-
-//       // Send the response if tour is found
-//       res.status(200).json({
-//         status: 'success',
-//         data: {
-//           tour,
-//         },
-//       });
-//     } catch (err) {
-//       next(new appError("Invalid ID", 404));
-//     }
-//   };
-  
-
-// exports.createTour=async(req,res,next)=>{
-//     try{
-//     const newTour=await Tour.create(req.body);
-//     res.status(201).json({
-//         status:'New Tour Created Successfully',
-//         data:{
-//             tour:newTour
-//         }
-//     })
-// } catch (err) {
-//     next(new appError(err.message, 404));
-//   }
-// };
-
-// exports.updateTour=async(req,res,next)=>{
-//         //await Tour.deleteOne(req.params.id,req.body);
-//         //await Tour.deleteMany(req.params.id,req.body);
-//     try{
-//        const updateTour= await Tour.findByIdAndUpdate(req.params.id,req.body); //Update and return the Updated
-//         res.status(200).json({ 
-//             status:'success',
-//             data:{
-//                 message:"Updated Tour id = "
-//                 +req.params.id
-//             }
-//         })
-//     } catch (err) {
-//         next(new appError(err.message,404));
-//       }
-// }
-
-// exports.deleteTour=async(req,res,next)=>{
-//     try{
-//         const tour=await Tour.findByIdAndDelete(req.params.id);
-//         if(!tour){
-//             return next(new appError("User NotExist",404));
-//         }
-//         res.status(200).json({
-//             status:'success',
-//             data:{
-//                 message:"Delete Tour id = "
-//                 +req.params.id
-//             }
-//         })  
-//     } catch (err) {
-//         next(new appError(err.message,404));
-//       }
-// };
-
-
-  //To  Store in Memory as Buffer for image Processing (Sharp Module)
-  const multerStorage=multer.memoryStorage();
-  //Filter the image input
-  const multerFilter=(req,file,cb)=>{
-    if(file.mimetype.startsWith('image')){
-      cb(null,true)
-    }else{
-      cb(new appError("Not Image ! Please upload an Image",400),false)
-    }
-  }
-  const upload=multer({
-    storage:multerStorage,
-    fileFilter:multerFilter
-  });
-  
-  // upload.array('images',5)
-  // upload.single('image')
-  exports.uploadTourImages=upload.fields([
-    {
-      name:'imageCover',
-      maxCount:1
-    },
-    {
-      name:'images',
-      maxCount:3
-    }
-  ])
-  
-  exports.resizeTourImages=async(req,res,next)=>{
-    if(!req.files.imageCover | !req.files.images) return next()
-//ImageCover
-    req.body.imageCover=`tour-${req.params.id}-${Date.now()}-cover.jpeg`
-    await sharp(req.files.imageCover[0].buffer)
-      .resize(2000,1333)
-      .toFormat('jpeg')
-      .jpeg({quality:90})
-      .toFile(`public/img/tours/${req.body.imageCover}`)
-//Images
-    req.body.images = [];
-    await Promise.all(
-      req.files.images.map(async(file,i)=>{
-        const filename=`tour-${req.params.id}-${Date.now()}-${i+1}.jpeg`
-        await sharp(file.buffer)
-        .resize(2000,1333)
-        .toFormat('jpeg')
-        .jpeg({quality:90})
-        .toFile(`public/img/tours/${filename}`)
-        req.body.images.push(filename);
-      })
-  );
-    next();
-  }
-
 
 
 exports.getAllTours=handlerFactory.getAll(Tour);
@@ -330,3 +201,65 @@ exports.getDistances = async (req, res, next) => {
   };
 
 
+
+  
+
+  const multerStorage = multer.memoryStorage();
+
+  const multerFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+      cb(null, true);
+    } else {
+      cb(new AppError('Not an image! Please upload only images.', 400), false);
+    }
+  };
+  
+  const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter
+  });
+  
+  exports.uploadTourImages = upload.fields([
+    { name: 'imageCover', maxCount: 1 },
+    { name: 'images', maxCount: 3 }
+  ]);
+  
+  // upload.single('image') req.file
+  // upload.array('images', 5) req.files
+  
+  exports.resizeTourImages = async (req, res, next) => {
+    try{
+    if (!req.files.imageCover || !req.files.images) return next();
+  
+    // 1) Cover image
+    req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
+    await sharp(req.files.imageCover[0].buffer)
+      .resize(2000, 1333)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/tours/${req.body.imageCover}`);
+  
+    // 2) Images
+    req.body.images = [];
+  
+    await Promise.all(
+      req.files.images.map(async (file, i) => {
+        const filename = `tour-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+  
+        await sharp(file.buffer)
+          .resize(2000, 1333)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/img/tours/${filename}`);
+  
+        req.body.images.push(filename);
+      })
+    );
+  
+    next();
+  }catch(err){
+    next(new appError(err.message,404))
+  }
+}
+
+  

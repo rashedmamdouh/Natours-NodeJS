@@ -9,7 +9,8 @@ export const login = async(email, password) => {
         url: '/api/v1/users/login',
         data:{
             email,
-            password
+            password,
+            // twoFactorCode
         }
     })
     if(res.data.status==="success"){
@@ -43,6 +44,7 @@ export const logout=async()=>{
 
 export const signup=async(name,email,password,confirmPassword)=>{
   try{
+    console.log(name,email,password,confirmPassword)
     const res=await axios({
       method: 'POST',
       url: '/api/v1/users/signup',
@@ -50,10 +52,9 @@ export const signup=async(name,email,password,confirmPassword)=>{
         name,
         email,
         password,
-        confirmPassword
+        confirmPassword,
     }
   })
-  
   if(res.data.status==="success") {
     showAlert("success","Welcome to Our Natours Community !");
       window.setTimeout(()=>{
@@ -64,6 +65,8 @@ export const signup=async(name,email,password,confirmPassword)=>{
     showAlert('error',err.response.data.message)
   }
 }
+
+
 
 
 export const Review=async(review,rating,id,type)=>{
@@ -117,5 +120,3 @@ export const Favourite=async(tourId,type)=>{
   showAlert('error',err.response.data.message)
 }
 }
-
-

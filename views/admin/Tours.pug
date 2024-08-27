@@ -1,0 +1,82 @@
+extends base
+
+block content
+    h1#tours-header #{title}
+    table#tours-table
+        thead
+            tr
+                th#name-header Name
+                th#duration-header Duration
+                th#price-header Price
+                th#difficulty-header Difficulty
+                th#groupsize-header Max Group Size
+                th#description-header Description
+                th#guides-header Guides
+
+        tbody
+            each tour in tours
+                tr
+                    td
+                        input.form__input(type='text', value=tour.name, id=`name-${tour._id}`, data-tour-id=tour._id)
+                    td
+                        input.form__input(type='number', value=tour.duration, id=`duration-${tour._id}`, data-tour-id=tour._id)
+                    td
+                        input.form__input(type='number', value=tour.price, id=`price-${tour._id}`, data-tour-id=tour._id)
+                    td
+                        select.form__input(id=`difficulty-${tour._id}`, data-tour-id=tour._id)
+                            option(value='easy', selected=tour.difficulty === 'easy') Easy
+                            option(value='medium', selected=tour.difficulty === 'medium') Medium
+                            option(value='difficult', selected=tour.difficulty === 'difficult') Difficult
+                    td
+                        input.form__input(type='number', value=tour.maxGroupSize, id=`groupsize-${tour._id}`, data-tour-id=tour._id)
+                    td
+                        input.form__input(type='text', value=tour.description, id=`description-${tour._id}`, data-tour-id=tour._id)
+                    td
+                        select.form__input(id=`guides-${tour._id}`, multiple, data-tour-id=tour._id)
+                            each guide in guides
+                                option(value=guide._id, selected=tour.guides.includes(guide._id)) #{guide.name}
+                    td
+                        button.btn.tour-save-button(data-tour-id=`${tour._id}`) Save 
+                        button.btn.tour-delete-button(data-tour-id=`${tour._id}`) Delete
+
+    form.form.form--adminCreateTour
+        .form__group
+            label.form__label(for='namefield') Tour Name
+            input#namefield.form__input(type='text', placeholder='Discover the Wonders of Alexandria')
+        .form__group
+            label.form__label(for='durationfield') Duration (days)
+            input#durationfield.form__input(type='number', placeholder='5')
+        .form__group
+            label.form__label(for='groupsizefield') Max Group Size
+            input#groupsizefield.form__input(type='number', placeholder='25')
+        .form__group
+            label.form__label(for='pricefield') Price
+            input#pricefield.form__input(type='number', placeholder='2900')
+        .form__group
+            label.form__label(for='summaryfield') Summary
+            input#summaryfield.form__input(type='text', placeholder='Explore the ancient city of Alexandria, Egypt, known for its rich history and beautiful Mediterranean coastline.')
+        .form__group
+            label.form__label(for='descriptionfield') Description
+            input#descriptionfield.form__input(type='text', placeholder='Join us on an exciting tour through the historic city of Alexandria. Visit the famous Library of Alexandria, the ancient Catacombs of Kom El Shoqafa, and the stunning Montaza Palace. Enjoy the blend of ancient wonders and modern culture in this vibrant city.')
+        .form__group
+            label.form__label(for='difficultyfield') Difficulty
+            select#difficultyfield.form__input(name='difficulty')
+                option(value='easy') Easy
+                option(value='medium') Medium
+                option(value='difficult') Difficult
+        .form__group
+            label.form__label(for='start-location-field') Start Location
+            input#start-location-field.form__input(type='text', placeholder='{     "description": "Alexandria, Egypt",     "type": "Point",     "coordinates": [29.9187, 31.2001],     "address": "Alexandria, Egypt" }')
+        .form__group
+            label.form__label(for='start-dates-field') Start Dates
+            input#start-dates-field.form__input(type='text', placeholder='[     "2024-09-10T09:00:00.000Z",     "2024-10-25T09:00:00.000Z",     "2024-12-15T09:00:00.000Z" ]')
+        .form__group
+            label.form__label(for='locations-field') Locations
+            input#locations-field.form__input(type='text', placeholder='[     {         "description": "Library of Alexandria",         "type": "Point",         "coordinates": [29.9092, 31.2135],         "day": 1     },     {         "description": "Catacombs of Kom El Shoqafa",         "type": "Point",         "coordinates": [29.8942, 31.1828],         "day": 2     },     {         "description": "Montaza Palace",         "type": "Point",         "coordinates": [29.9182, 31.2394],         "day": 3     } ]')
+        .form__group
+            label.form__label(for='guides-field') Guides
+            select#guides-field.form__input(name='guides', multiple)
+                each guide in guides
+                    option(value=guide._id) #{guide.name}
+        .form__group
+            button.btn.btn--green.span-all-rows#new-tour-link(type='submit') Create New Tour

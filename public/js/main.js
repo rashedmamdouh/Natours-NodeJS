@@ -1,4 +1,7 @@
 import {login, logout, signup,Review,Favourite} from './collection'
+import {adminDeleteUser,adminCreateUser, adminUpdateUser} from './admin'
+import {adminUpdateTour, adminDeleteTour, adminCreateTour } from './admin';
+import {adminUpdateReview, adminDeleteReview, adminDeleteBooking} from './admin';
 import {updateSettings} from './updateSettings'
 import {bookTour} from './stripe'
 import {showAlert} from './alert'
@@ -12,6 +15,11 @@ const updateUserPassform=document.querySelector('.form--update-user-password');
 const reviewForm=document.querySelector('.form--review');
 const favBtn=document.querySelector('.fav-btn');
 const bookBtn=document.getElementById('book-tour');
+const adminDeleteUserBtns=document.querySelectorAll('.user-delete-button');
+const adminCreateUserForm=document.querySelector('.form--adminCreateUser')
+const userupdateBtns=document.querySelectorAll('.user-save-button');
+const createTourForm = document.querySelector('.form--adminCreateTour');
+
 
 
 
@@ -23,7 +31,7 @@ if(loginForm || signUpForm ){
             e.preventDefault();
             const email=document.getElementById('email').value;
             const password=document.getElementById('password').value;
-
+            // const twoFactorCode=document.getElementById('secretCode').value;
             login(email, password);
         })
     }
@@ -123,3 +131,204 @@ if (favBtn) {
           }    
          })
     }
+
+    
+if(adminDeleteUserBtns){
+        for (const adminDeleteUserBtn of adminDeleteUserBtns) {
+            adminDeleteUserBtn.addEventListener('click',async e =>{
+                e.preventDefault();
+                const userId=adminDeleteUserBtn.dataset.userId;
+                adminDeleteUser(userId);
+    })
+}
+}
+
+userupdateBtns.forEach(button => {
+    button.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const userId = button.getAttribute('data-user-id');
+
+        const name = document.getElementById(`name-${userId}`).value;
+        const email = document.getElementById(`email-${userId}`).value;
+        const role = document.getElementById(`role-${userId}`).value;
+
+        adminUpdateUser(name,email,role,userId);
+    });
+});
+
+
+if(adminCreateUserForm){
+    adminCreateUserForm.addEventListener('submit',async e =>{
+        e.preventDefault();
+        const email=document.getElementById('emailfield').value;
+        const name=document.getElementById('namefield').value;
+        const password=document.getElementById('password').value;
+        const confirmpassword=document.getElementById('confirm-password').value;
+        const role=document.getElementById('rolefield').value;
+        adminCreateUser(name,email, password,confirmpassword,role);
+    })
+}
+
+
+
+if (createTourForm) {
+    createTourForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        try {
+            // Get form field values
+            const name = document.getElementById('namefield').value;
+            const duration = parseInt(document.getElementById('durationfield').value, 10);
+            const maxGroupSize = parseInt(document.getElementById('groupsizefield').value, 10);
+            const price = parseFloat(document.getElementById('pricefield').value);
+            const difficulty = document.getElementById('difficultyfield').value;
+            const summary = document.getElementById('summaryfield').value;
+            const description = document.getElementById('descriptionfield').value;
+            const startLocation = document.getElementById('start-location-field').value;
+
+            // Ensure the string is properly parsed as JSON
+            let startDates = [];
+            try {
+                startDates = JSON.parse(document.getElementById('start-dates-field').value)
+                    .map(dateStr => new Date(dateStr.trim()));
+            } catch (parseError) {
+                console.error("Failed to parse startDates JSON:", parseError);
+            }
+
+            // Parse locations JSON string into an array of objects
+            let locations = [];
+            try {
+                locations = JSON.parse(document.getElementById('locations-field').value);
+            } catch (parseError) {
+                console.error("Failed to parse locations JSON:", parseError);
+            }
+
+            const guides = Array.from(document.getElementById('guides-field').selectedOptions)
+                .map(option => option.value);
+
+            // Prepare data object
+            const data = {
+                name,
+                duration,
+                maxGroupSize,
+                price,
+                difficulty,
+                summary,
+                description,
+                startLocation,
+                startDates,
+                locations,
+                guides
+            };
+
+            // Log data for debugging purposes
+            console.log(data);
+
+            // Call the function to create the tour
+            adminCreateTour(data);
+
+        } catch (error) {
+            console.error("Error during form submission:", error.message);
+            alert(`Form submission failed: ${error.message}`);
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Handle save tour updates
+    const saveButtons = document.querySelectorAll('.tour-save-button');
+    saveButtons.forEach(button => {
+        button.addEventListener('click', async e => {
+            e.preventDefault();
+            const tourId = button.getAttribute('data-tour-id');
+            
+            // Gather the updated data
+            const name = document.getElementById(`name-${tourId}`).value;
+            const duration = document.getElementById(`duration-${tourId}`).value;
+            const price = document.getElementById(`price-${tourId}`).value;
+            const difficulty = document.getElementById(`difficulty-${tourId}`).value;
+            
+            
+            // Construct form data
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('duration', duration);
+            formData.append('price', price);
+            formData.append('difficulty', difficulty);
+            
+            // Send the update request
+            await adminUpdateTour(formData,tourId);
+            showAlert('success', 'Tour updated successfully!');
+        });
+    });
+
+
+    // Handle delete tour
+    const deleteButtons = document.querySelectorAll('.tour-delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', async e => {
+            e.preventDefault();
+            const tourId = button.getAttribute('data-tour-id');
+
+            // Confirm before deleting
+            if (confirm('Are you sure you want to delete this tour?')) {
+                await adminDeleteTour(tourId);
+                showAlert('success', 'Tour deleted successfully!');
+            }
+        });
+    })
+
+});
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Save review handler
+    const saveButtons = document.querySelectorAll('.review-save-button');
+    saveButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const reviewId = e.target.dataset.reviewId;
+        const review = document.querySelector(`#review-${reviewId}`).value;
+        const rating = document.querySelector(`#rating-${reviewId}`).value;
+        const data={review,rating}
+        adminUpdateReview(data,reviewId);
+      })
+    })
+
+    // Delete review handler
+    const deleteButtons = document.querySelectorAll('.review-delete-button');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const reviewId = e.target.dataset.reviewId;
+  
+        if (confirm('Are you sure you want to delete this review?')) {
+            adminDeleteReview(reviewId);
+        }
+      });
+});
+});  
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Delete booking handler
+    const deleteButtons = document.querySelectorAll('.booking-delete-button');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const bookingId = e.target.dataset.bookingId;
+  
+        if (confirm('Are you sure you want to delete this booking?')) {
+            adminDeleteBooking(bookingId)
+    }
+    })
+})
+});
+ 

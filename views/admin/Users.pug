@@ -1,0 +1,54 @@
+extends base
+
+block content
+    h1#users-header Users
+    table#users-table
+        thead
+            tr
+                th#name-header Name
+                th#email-header Email
+                th#role-header Role
+                th#actions-header Actions
+        tbody
+            tbody
+            each user in users
+                tr
+                    td
+                        input.form__input(type='text', value=user.name, id=`name-${user.id}`, data-user-id=user.id)
+                    td
+                        input.form__input(type='email', value=user.email, id=`email-${user.id}`, data-user-id=user.id)
+                    td
+                        select.form__input(id=`role-${user.id}`, data-user-id=user.id)
+                            option(value='user', selected=user.role === 'user') User
+                            option(value='lead-guide', selected=user.role === 'lead-guide') Lead Guide
+                            option(value='admin', selected=user.role === 'admin') Admin
+                            option(value='guide', selected=user.role === 'guide') Guide
+                    td
+                        button.btn.user-save-button(data-user-id=`${user.id}`) Save 
+                        button.btn.user-delete-button(data-user-id=`${user.id}`) Delete
+    
+    form.form.form--adminCreateUser
+        .form__group
+            label.form__label(for='email') Email address
+            input#emailfield.form__input(type='email', placeholder='you@example.com', required)
+        .form__group
+            label.form__label(for='name') Name
+            input#namefield.form__input(required)
+        .form__group.ma-bt-md
+            label.form__label(for='password') Password
+            input#password.form__input(type='password', placeholder='••••••••', required minlength='8')
+        .form__group.ma-bt-md
+            label.form__label(for='confirm-password') Confirm Password
+            input#confirm-password.form__input(type='password', placeholder='••••••••', required minlength='8')
+        .form__group.ma-bt-md
+            label.form__label(for='role') Role
+            select#rolefield.form__input(name='role')
+                option(value='user') User
+                option(value='admin') Admin
+                option(value='guide') Guide
+                option(value='lead-guide') Lead Guide
+        .form__group
+            button.a.btn.btn--green.span-all-rows#new-user-link(type='submit') Create New User
+
+
+        

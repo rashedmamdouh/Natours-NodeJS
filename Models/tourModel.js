@@ -17,7 +17,8 @@ const tourSchema=new mongoose.Schema({
         default:4.5,
         max:5,
         min:0,
-        set:val=>Math.round(val*10)/10
+        set:val=>Math.round(val*10)/10,
+        default:0
     },
     ratingsQuantity:{
         type:Number,
@@ -64,7 +65,7 @@ const tourSchema=new mongoose.Schema({
     },
     imageCover:{
         type:String,
-        require:[true,"Tour Must Has a Cover image"]
+        default: 'default.jpg'
     },
     images:[String],
     createdAt:{

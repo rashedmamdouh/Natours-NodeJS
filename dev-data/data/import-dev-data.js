@@ -10,6 +10,10 @@ dotenv.config({path:'./config.env'});
 const DB=process.env.DATABASE.replace("<PASSWORD>",process.env.DATABASE_PASSWORD);
 mongoose.connect(DB).then();
 
+// mongoose.connect(process.env.LOCAL_DB)
+// .then();
+
+
 //Read the file
 const toursData=JSON.parse(fs.readFileSync(`${__dirname}/tours.json`,'utf-8'))
 const usersData=JSON.parse(fs.readFileSync(`${__dirname}/users.json`,'utf-8'))

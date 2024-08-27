@@ -12744,6 +12744,7 @@ var login = exports.login = /*#__PURE__*/function () {
             data: {
               email: email,
               password: password
+              // twoFactorCode
             }
           });
         case 3:
@@ -12813,7 +12814,8 @@ var signup = exports.signup = /*#__PURE__*/function () {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          _context3.next = 3;
+          console.log(name, email, password, confirmPassword);
+          _context3.next = 4;
           return (0, _axios.default)({
             method: 'POST',
             url: '/api/v1/users/signup',
@@ -12824,7 +12826,7 @@ var signup = exports.signup = /*#__PURE__*/function () {
               confirmPassword: confirmPassword
             }
           });
-        case 3:
+        case 4:
           res = _context3.sent;
           if (res.data.status === "success") {
             (0, _alert.showAlert)("success", "Welcome to Our Natours Community !");
@@ -12832,17 +12834,17 @@ var signup = exports.signup = /*#__PURE__*/function () {
               location.assign('/');
             }, 1500);
           }
-          _context3.next = 10;
+          _context3.next = 11;
           break;
-        case 7:
-          _context3.prev = 7;
+        case 8:
+          _context3.prev = 8;
           _context3.t0 = _context3["catch"](0);
           (0, _alert.showAlert)('error', _context3.t0.response.data.message);
-        case 10:
+        case 11:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[0, 7]]);
+    }, _callee3, null, [[0, 8]]);
   }));
   return function signup(_x3, _x4, _x5, _x6) {
     return _ref3.apply(this, arguments);
@@ -12926,6 +12928,495 @@ var Favourite = exports.Favourite = /*#__PURE__*/function () {
   }));
   return function Favourite(_x11, _x12) {
     return _ref5.apply(this, arguments);
+  };
+}();
+},{"core-js/modules/es6.array.copy-within.js":"../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill.js":"../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.filter.js":"../../node_modules/core-js/modules/es6.array.filter.js","core-js/modules/es6.array.find.js":"../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index.js":"../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map.js":"../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from.js":"../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes.js":"../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator.js":"../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.map.js":"../../node_modules/core-js/modules/es6.array.map.js","core-js/modules/es6.array.of.js":"../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.slice.js":"../../node_modules/core-js/modules/es6.array.slice.js","core-js/modules/es6.array.species.js":"../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-primitive.js":"../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance.js":"../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name.js":"../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map.js":"../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh.js":"../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh.js":"../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh.js":"../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt.js":"../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32.js":"../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh.js":"../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1.js":"../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround.js":"../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot.js":"../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul.js":"../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p.js":"../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10.js":"../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2.js":"../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign.js":"../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh.js":"../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh.js":"../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc.js":"../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor.js":"../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon.js":"../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite.js":"../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer.js":"../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan.js":"../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer.js":"../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer.js":"../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer.js":"../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float.js":"../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int.js":"../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign.js":"../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter.js":"../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter.js":"../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries.js":"../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze.js":"../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor.js":"../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors.js":"../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names.js":"../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of.js":"../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter.js":"../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter.js":"../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions.js":"../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string.js":"../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is.js":"../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen.js":"../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed.js":"../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible.js":"../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys.js":"../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal.js":"../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values.js":"../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise.js":"../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally.js":"../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply.js":"../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct.js":"../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property.js":"../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property.js":"../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get.js":"../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor.js":"../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of.js":"../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has.js":"../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible.js":"../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys.js":"../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions.js":"../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set.js":"../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of.js":"../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor.js":"../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags.js":"../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match.js":"../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace.js":"../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split.js":"../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search.js":"../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string.js":"../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set.js":"../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol.js":"../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator.js":"../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor.js":"../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big.js":"../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink.js":"../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold.js":"../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at.js":"../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with.js":"../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed.js":"../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor.js":"../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize.js":"../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point.js":"../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes.js":"../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics.js":"../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator.js":"../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link.js":"../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start.js":"../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end.js":"../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw.js":"../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat.js":"../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small.js":"../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with.js":"../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike.js":"../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub.js":"../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup.js":"../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left.js":"../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right.js":"../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer.js":"../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array.js":"../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array.js":"../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array.js":"../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array.js":"../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array.js":"../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array.js":"../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array.js":"../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array.js":"../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array.js":"../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map.js":"../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set.js":"../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers.js":"../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate.js":"../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable.js":"../../node_modules/core-js/modules/web.dom.iterable.js","axios":"../../node_modules/axios/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./alert":"alert.js"}],"admin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.adminUpdateUser = exports.adminUpdateTour = exports.adminUpdateReview = exports.adminDeleteUser = exports.adminDeleteTour = exports.adminDeleteReview = exports.adminDeleteBooking = exports.adminCreateUser = exports.adminCreateTour = void 0;
+require("core-js/modules/es6.array.copy-within.js");
+require("core-js/modules/es6.array.fill.js");
+require("core-js/modules/es6.array.filter.js");
+require("core-js/modules/es6.array.find.js");
+require("core-js/modules/es6.array.find-index.js");
+require("core-js/modules/es7.array.flat-map.js");
+require("core-js/modules/es6.array.from.js");
+require("core-js/modules/es7.array.includes.js");
+require("core-js/modules/es6.array.iterator.js");
+require("core-js/modules/es6.array.map.js");
+require("core-js/modules/es6.array.of.js");
+require("core-js/modules/es6.array.slice.js");
+require("core-js/modules/es6.array.species.js");
+require("core-js/modules/es6.date.to-primitive.js");
+require("core-js/modules/es6.function.has-instance.js");
+require("core-js/modules/es6.function.name.js");
+require("core-js/modules/es6.map.js");
+require("core-js/modules/es6.math.acosh.js");
+require("core-js/modules/es6.math.asinh.js");
+require("core-js/modules/es6.math.atanh.js");
+require("core-js/modules/es6.math.cbrt.js");
+require("core-js/modules/es6.math.clz32.js");
+require("core-js/modules/es6.math.cosh.js");
+require("core-js/modules/es6.math.expm1.js");
+require("core-js/modules/es6.math.fround.js");
+require("core-js/modules/es6.math.hypot.js");
+require("core-js/modules/es6.math.imul.js");
+require("core-js/modules/es6.math.log1p.js");
+require("core-js/modules/es6.math.log10.js");
+require("core-js/modules/es6.math.log2.js");
+require("core-js/modules/es6.math.sign.js");
+require("core-js/modules/es6.math.sinh.js");
+require("core-js/modules/es6.math.tanh.js");
+require("core-js/modules/es6.math.trunc.js");
+require("core-js/modules/es6.number.constructor.js");
+require("core-js/modules/es6.number.epsilon.js");
+require("core-js/modules/es6.number.is-finite.js");
+require("core-js/modules/es6.number.is-integer.js");
+require("core-js/modules/es6.number.is-nan.js");
+require("core-js/modules/es6.number.is-safe-integer.js");
+require("core-js/modules/es6.number.max-safe-integer.js");
+require("core-js/modules/es6.number.min-safe-integer.js");
+require("core-js/modules/es6.number.parse-float.js");
+require("core-js/modules/es6.number.parse-int.js");
+require("core-js/modules/es6.object.assign.js");
+require("core-js/modules/es7.object.define-getter.js");
+require("core-js/modules/es7.object.define-setter.js");
+require("core-js/modules/es7.object.entries.js");
+require("core-js/modules/es6.object.freeze.js");
+require("core-js/modules/es6.object.get-own-property-descriptor.js");
+require("core-js/modules/es7.object.get-own-property-descriptors.js");
+require("core-js/modules/es6.object.get-own-property-names.js");
+require("core-js/modules/es6.object.get-prototype-of.js");
+require("core-js/modules/es7.object.lookup-getter.js");
+require("core-js/modules/es7.object.lookup-setter.js");
+require("core-js/modules/es6.object.prevent-extensions.js");
+require("core-js/modules/es6.object.to-string.js");
+require("core-js/modules/es6.object.is.js");
+require("core-js/modules/es6.object.is-frozen.js");
+require("core-js/modules/es6.object.is-sealed.js");
+require("core-js/modules/es6.object.is-extensible.js");
+require("core-js/modules/es6.object.keys.js");
+require("core-js/modules/es6.object.seal.js");
+require("core-js/modules/es7.object.values.js");
+require("core-js/modules/es6.promise.js");
+require("core-js/modules/es7.promise.finally.js");
+require("core-js/modules/es6.reflect.apply.js");
+require("core-js/modules/es6.reflect.construct.js");
+require("core-js/modules/es6.reflect.define-property.js");
+require("core-js/modules/es6.reflect.delete-property.js");
+require("core-js/modules/es6.reflect.get.js");
+require("core-js/modules/es6.reflect.get-own-property-descriptor.js");
+require("core-js/modules/es6.reflect.get-prototype-of.js");
+require("core-js/modules/es6.reflect.has.js");
+require("core-js/modules/es6.reflect.is-extensible.js");
+require("core-js/modules/es6.reflect.own-keys.js");
+require("core-js/modules/es6.reflect.prevent-extensions.js");
+require("core-js/modules/es6.reflect.set.js");
+require("core-js/modules/es6.reflect.set-prototype-of.js");
+require("core-js/modules/es6.regexp.constructor.js");
+require("core-js/modules/es6.regexp.flags.js");
+require("core-js/modules/es6.regexp.match.js");
+require("core-js/modules/es6.regexp.replace.js");
+require("core-js/modules/es6.regexp.split.js");
+require("core-js/modules/es6.regexp.search.js");
+require("core-js/modules/es6.regexp.to-string.js");
+require("core-js/modules/es6.set.js");
+require("core-js/modules/es6.symbol.js");
+require("core-js/modules/es7.symbol.async-iterator.js");
+require("core-js/modules/es6.string.anchor.js");
+require("core-js/modules/es6.string.big.js");
+require("core-js/modules/es6.string.blink.js");
+require("core-js/modules/es6.string.bold.js");
+require("core-js/modules/es6.string.code-point-at.js");
+require("core-js/modules/es6.string.ends-with.js");
+require("core-js/modules/es6.string.fixed.js");
+require("core-js/modules/es6.string.fontcolor.js");
+require("core-js/modules/es6.string.fontsize.js");
+require("core-js/modules/es6.string.from-code-point.js");
+require("core-js/modules/es6.string.includes.js");
+require("core-js/modules/es6.string.italics.js");
+require("core-js/modules/es6.string.iterator.js");
+require("core-js/modules/es6.string.link.js");
+require("core-js/modules/es7.string.pad-start.js");
+require("core-js/modules/es7.string.pad-end.js");
+require("core-js/modules/es6.string.raw.js");
+require("core-js/modules/es6.string.repeat.js");
+require("core-js/modules/es6.string.small.js");
+require("core-js/modules/es6.string.starts-with.js");
+require("core-js/modules/es6.string.strike.js");
+require("core-js/modules/es6.string.sub.js");
+require("core-js/modules/es6.string.sup.js");
+require("core-js/modules/es7.string.trim-left.js");
+require("core-js/modules/es7.string.trim-right.js");
+require("core-js/modules/es6.typed.array-buffer.js");
+require("core-js/modules/es6.typed.int8-array.js");
+require("core-js/modules/es6.typed.uint8-array.js");
+require("core-js/modules/es6.typed.uint8-clamped-array.js");
+require("core-js/modules/es6.typed.int16-array.js");
+require("core-js/modules/es6.typed.uint16-array.js");
+require("core-js/modules/es6.typed.int32-array.js");
+require("core-js/modules/es6.typed.uint32-array.js");
+require("core-js/modules/es6.typed.float32-array.js");
+require("core-js/modules/es6.typed.float64-array.js");
+require("core-js/modules/es6.weak-map.js");
+require("core-js/modules/es6.weak-set.js");
+require("core-js/modules/web.timers.js");
+require("core-js/modules/web.immediate.js");
+require("core-js/modules/web.dom.iterable.js");
+var _axios = _interopRequireDefault(require("axios"));
+require("regenerator-runtime/runtime.js");
+var _alert = require("./alert");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+var adminDeleteUser = exports.adminDeleteUser = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(userId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return (0, _axios.default)({
+            method: 'delete',
+            url: "/api/v1/users/".concat(userId)
+          });
+        case 3:
+          res = _context.sent;
+          (0, _alert.showAlert)("success", "User Deleted Successfully");
+          window.setTimeout(function () {
+            location.reload();
+          }, 1500);
+          _context.next = 11;
+          break;
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
+          (0, _alert.showAlert)('error', _context.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+  return function adminDeleteUser(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+var adminCreateUser = exports.adminCreateUser = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(name, email, password, confirmPassword, role) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          _context2.next = 3;
+          return (0, _axios.default)({
+            method: 'POST',
+            url: '/api/v1/users',
+            data: {
+              name: name,
+              email: email,
+              password: password,
+              confirmPassword: confirmPassword,
+              role: role
+            }
+          });
+        case 3:
+          res = _context2.sent;
+          if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "User Created Successfully");
+            window.setTimeout(function () {
+              location.reload();
+            }, 1500);
+          }
+          _context2.next = 10;
+          break;
+        case 7:
+          _context2.prev = 7;
+          _context2.t0 = _context2["catch"](0);
+          (0, _alert.showAlert)('error', _context2.t0.response.data.message);
+        case 10:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+  return function adminCreateUser(_x2, _x3, _x4, _x5, _x6) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var adminUpdateUser = exports.adminUpdateUser = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(name, email, role, userId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
+          return (0, _axios.default)({
+            method: 'patch',
+            url: "/api/v1/users/".concat(userId),
+            data: {
+              name: name,
+              email: email,
+              role: role
+            }
+          });
+        case 3:
+          res = _context3.sent;
+          // console.log(res)
+          if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "User Updated Successfully");
+            window.setTimeout(function () {
+              location.reload();
+            }, 1500);
+          }
+          _context3.next = 10;
+          break;
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
+          (0, _alert.showAlert)('error', _context3.t0.response.data.message);
+        case 10:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+  return function adminUpdateUser(_x7, _x8, _x9, _x10) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+// //////////////////////////////////////////////////////////////////////////////////////////
+
+var adminCreateTour = exports.adminCreateTour = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(data) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          _context4.next = 3;
+          return (0, _axios.default)({
+            method: 'POST',
+            url: '/api/v1/tours',
+            data: data
+          });
+        case 3:
+          res = _context4.sent;
+          if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Tour Created Successfully");
+            window.setTimeout(function () {
+              location.reload();
+            }, 1500);
+          }
+          _context4.next = 11;
+          break;
+        case 7:
+          _context4.prev = 7;
+          _context4.t0 = _context4["catch"](0);
+          console.log("err");
+          (0, _alert.showAlert)('error', _context4.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context4.stop();
+      }
+    }, _callee4, null, [[0, 7]]);
+  }));
+  return function adminCreateTour(_x11) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+var adminDeleteTour = exports.adminDeleteTour = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(tourId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          _context5.next = 3;
+          return (0, _axios.default)({
+            method: 'delete',
+            url: "/api/v1/tours/".concat(tourId)
+          });
+        case 3:
+          res = _context5.sent;
+          (0, _alert.showAlert)("success", "Tour Deleted Successfully");
+          window.setTimeout(function () {
+            location.reload();
+          }, 1500);
+          _context5.next = 11;
+          break;
+        case 8:
+          _context5.prev = 8;
+          _context5.t0 = _context5["catch"](0);
+          (0, _alert.showAlert)('error', _context5.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5, null, [[0, 8]]);
+  }));
+  return function adminDeleteTour(_x12) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+var adminUpdateTour = exports.adminUpdateTour = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(data, tourId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return (0, _axios.default)({
+            method: 'patch',
+            url: "/api/v1/tours/".concat(tourId),
+            data: data
+          });
+        case 3:
+          res = _context6.sent;
+          console.log(res);
+          if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Tour Updated Successfully");
+            window.setTimeout(function () {
+              location.reload();
+            }, 1500);
+          }
+          _context6.next = 11;
+          break;
+        case 8:
+          _context6.prev = 8;
+          _context6.t0 = _context6["catch"](0);
+          (0, _alert.showAlert)('error', _context6.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6, null, [[0, 8]]);
+  }));
+  return function adminUpdateTour(_x13, _x14) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+// //////////////////////////////////////////////////////////////////////////////////////////
+
+var adminDeleteReview = exports.adminDeleteReview = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(reviewId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.prev = 0;
+          _context7.next = 3;
+          return (0, _axios.default)({
+            method: 'delete',
+            url: "/api/v1/reviews/".concat(reviewId)
+          });
+        case 3:
+          res = _context7.sent;
+          (0, _alert.showAlert)("success", "Review Deleted Successfully");
+          window.setTimeout(function () {
+            location.reload();
+          }, 1500);
+          _context7.next = 11;
+          break;
+        case 8:
+          _context7.prev = 8;
+          _context7.t0 = _context7["catch"](0);
+          (0, _alert.showAlert)('error', _context7.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7, null, [[0, 8]]);
+  }));
+  return function adminDeleteReview(_x15) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+var adminUpdateReview = exports.adminUpdateReview = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(data, reviewId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          console.log(data);
+          _context8.prev = 1;
+          _context8.next = 4;
+          return (0, _axios.default)({
+            method: 'post',
+            url: "/api/v1/reviews/".concat(reviewId),
+            data: data
+          });
+        case 4:
+          res = _context8.sent;
+          // console.log(res)
+          if (res.data.status === "success") {
+            (0, _alert.showAlert)("success", "Review Updated Successfully");
+            window.setTimeout(function () {
+              location.reload();
+            }, 1500);
+          }
+          _context8.next = 11;
+          break;
+        case 8:
+          _context8.prev = 8;
+          _context8.t0 = _context8["catch"](1);
+          (0, _alert.showAlert)('error', _context8.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8, null, [[1, 8]]);
+  }));
+  return function adminUpdateReview(_x16, _x17) {
+    return _ref8.apply(this, arguments);
+  };
+}();
+
+// //////////////////////////////////////////////////////////////////////////////////////////
+
+var adminDeleteBooking = exports.adminDeleteBooking = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(bookingId) {
+    var res;
+    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      while (1) switch (_context9.prev = _context9.next) {
+        case 0:
+          _context9.prev = 0;
+          _context9.next = 3;
+          return (0, _axios.default)({
+            method: 'delete',
+            url: "/api/v1/bookings/".concat(bookingId)
+          });
+        case 3:
+          res = _context9.sent;
+          (0, _alert.showAlert)("success", "Booking Deleted Successfully");
+          window.setTimeout(function () {
+            location.reload();
+          }, 1500);
+          _context9.next = 11;
+          break;
+        case 8:
+          _context9.prev = 8;
+          _context9.t0 = _context9["catch"](0);
+          (0, _alert.showAlert)('error', _context9.t0.response.data.message);
+        case 11:
+        case "end":
+          return _context9.stop();
+      }
+    }, _callee9, null, [[0, 8]]);
+  }));
+  return function adminDeleteBooking(_x18) {
+    return _ref9.apply(this, arguments);
   };
 }();
 },{"core-js/modules/es6.array.copy-within.js":"../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill.js":"../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.filter.js":"../../node_modules/core-js/modules/es6.array.filter.js","core-js/modules/es6.array.find.js":"../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index.js":"../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map.js":"../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from.js":"../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes.js":"../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator.js":"../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.map.js":"../../node_modules/core-js/modules/es6.array.map.js","core-js/modules/es6.array.of.js":"../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.slice.js":"../../node_modules/core-js/modules/es6.array.slice.js","core-js/modules/es6.array.species.js":"../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-primitive.js":"../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance.js":"../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name.js":"../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map.js":"../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh.js":"../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh.js":"../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh.js":"../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt.js":"../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32.js":"../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh.js":"../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1.js":"../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround.js":"../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot.js":"../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul.js":"../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p.js":"../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10.js":"../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2.js":"../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign.js":"../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh.js":"../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh.js":"../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc.js":"../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor.js":"../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon.js":"../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite.js":"../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer.js":"../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan.js":"../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer.js":"../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer.js":"../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer.js":"../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float.js":"../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int.js":"../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign.js":"../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter.js":"../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter.js":"../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries.js":"../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze.js":"../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor.js":"../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors.js":"../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names.js":"../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of.js":"../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter.js":"../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter.js":"../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions.js":"../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string.js":"../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is.js":"../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen.js":"../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed.js":"../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible.js":"../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys.js":"../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal.js":"../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values.js":"../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise.js":"../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally.js":"../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply.js":"../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct.js":"../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property.js":"../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property.js":"../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get.js":"../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor.js":"../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of.js":"../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has.js":"../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible.js":"../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys.js":"../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions.js":"../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set.js":"../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of.js":"../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor.js":"../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags.js":"../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match.js":"../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace.js":"../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split.js":"../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search.js":"../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string.js":"../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set.js":"../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol.js":"../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator.js":"../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor.js":"../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big.js":"../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink.js":"../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold.js":"../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at.js":"../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with.js":"../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed.js":"../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor.js":"../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize.js":"../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point.js":"../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes.js":"../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics.js":"../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator.js":"../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link.js":"../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start.js":"../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end.js":"../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw.js":"../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat.js":"../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small.js":"../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with.js":"../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike.js":"../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub.js":"../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup.js":"../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left.js":"../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right.js":"../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer.js":"../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array.js":"../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array.js":"../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array.js":"../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array.js":"../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array.js":"../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array.js":"../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array.js":"../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array.js":"../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array.js":"../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map.js":"../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set.js":"../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers.js":"../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate.js":"../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable.js":"../../node_modules/core-js/modules/web.dom.iterable.js","axios":"../../node_modules/axios/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./alert":"alert.js"}],"updateSettings.js":[function(require,module,exports) {
@@ -13173,10 +13664,14 @@ var bookTour = exports.bookTour = /*#__PURE__*/function () {
 "use strict";
 
 var _collection = require("./collection");
+var _admin = require("./admin");
 var _updateSettings = require("./updateSettings");
 var _stripe = require("./stripe");
 var _alert = require("./alert");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
@@ -13188,12 +13683,17 @@ var updateUserPassform = document.querySelector('.form--update-user-password');
 var reviewForm = document.querySelector('.form--review');
 var favBtn = document.querySelector('.fav-btn');
 var bookBtn = document.getElementById('book-tour');
+var adminDeleteUserBtns = document.querySelectorAll('.user-delete-button');
+var adminCreateUserForm = document.querySelector('.form--adminCreateUser');
+var userupdateBtns = document.querySelectorAll('.user-save-button');
+var createTourForm = document.querySelector('.form--adminCreateTour');
 if (loginForm || signUpForm) {
   if (loginForm) {
     loginForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
+      // const twoFactorCode=document.getElementById('secretCode').value;
       (0, _collection.login)(email, password);
     });
   } else {
@@ -13330,7 +13830,311 @@ if (favBtn) {
     };
   }());
 }
-},{"./collection":"collection.js","./updateSettings":"updateSettings.js","./stripe":"stripe.js","./alert":"alert.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+if (adminDeleteUserBtns) {
+  var _iterator = _createForOfIteratorHelper(adminDeleteUserBtns),
+    _step;
+  try {
+    var _loop = function _loop() {
+      var adminDeleteUserBtn = _step.value;
+      adminDeleteUserBtn.addEventListener('click', /*#__PURE__*/function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+          var userId;
+          return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+            while (1) switch (_context4.prev = _context4.next) {
+              case 0:
+                e.preventDefault();
+                userId = adminDeleteUserBtn.dataset.userId;
+                (0, _admin.adminDeleteUser)(userId);
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }, _callee4);
+        }));
+        return function (_x4) {
+          return _ref4.apply(this, arguments);
+        };
+      }());
+    };
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}
+userupdateBtns.forEach(function (button) {
+  button.addEventListener('click', /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(e) {
+      var userId, name, email, role;
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
+          case 0:
+            e.preventDefault();
+            userId = button.getAttribute('data-user-id');
+            name = document.getElementById("name-".concat(userId)).value;
+            email = document.getElementById("email-".concat(userId)).value;
+            role = document.getElementById("role-".concat(userId)).value;
+            (0, _admin.adminUpdateUser)(name, email, role, userId);
+          case 6:
+          case "end":
+            return _context5.stop();
+        }
+      }, _callee5);
+    }));
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
+    };
+  }());
+});
+if (adminCreateUserForm) {
+  adminCreateUserForm.addEventListener('submit', /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(e) {
+      var email, name, password, confirmpassword, role;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
+          case 0:
+            e.preventDefault();
+            email = document.getElementById('emailfield').value;
+            name = document.getElementById('namefield').value;
+            password = document.getElementById('password').value;
+            confirmpassword = document.getElementById('confirm-password').value;
+            role = document.getElementById('rolefield').value;
+            (0, _admin.adminCreateUser)(name, email, password, confirmpassword, role);
+          case 7:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6);
+    }));
+    return function (_x6) {
+      return _ref6.apply(this, arguments);
+    };
+  }());
+}
+if (createTourForm) {
+  createTourForm.addEventListener('submit', /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(e) {
+      var name, duration, maxGroupSize, price, difficulty, summary, description, startLocation, startDates, locations, guides, data;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            e.preventDefault();
+            try {
+              // Get form field values
+              name = document.getElementById('namefield').value;
+              duration = parseInt(document.getElementById('durationfield').value, 10);
+              maxGroupSize = parseInt(document.getElementById('groupsizefield').value, 10);
+              price = parseFloat(document.getElementById('pricefield').value);
+              difficulty = document.getElementById('difficultyfield').value;
+              summary = document.getElementById('summaryfield').value;
+              description = document.getElementById('descriptionfield').value;
+              startLocation = document.getElementById('start-location-field').value; // Ensure the string is properly parsed as JSON
+              startDates = [];
+              try {
+                startDates = JSON.parse(document.getElementById('start-dates-field').value).map(function (dateStr) {
+                  return new Date(dateStr.trim());
+                });
+              } catch (parseError) {
+                console.error("Failed to parse startDates JSON:", parseError);
+              }
+
+              // Parse locations JSON string into an array of objects
+              locations = [];
+              try {
+                locations = JSON.parse(document.getElementById('locations-field').value);
+              } catch (parseError) {
+                console.error("Failed to parse locations JSON:", parseError);
+              }
+              guides = Array.from(document.getElementById('guides-field').selectedOptions).map(function (option) {
+                return option.value;
+              }); // Prepare data object
+              data = {
+                name: name,
+                duration: duration,
+                maxGroupSize: maxGroupSize,
+                price: price,
+                difficulty: difficulty,
+                summary: summary,
+                description: description,
+                startLocation: startLocation,
+                startDates: startDates,
+                locations: locations,
+                guides: guides
+              }; // Log data for debugging purposes
+              console.log(data);
+
+              // Call the function to create the tour
+              (0, _admin.adminCreateTour)(data);
+            } catch (error) {
+              console.error("Error during form submission:", error.message);
+              alert("Form submission failed: ".concat(error.message));
+            }
+          case 2:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7);
+    }));
+    return function (_x7) {
+      return _ref7.apply(this, arguments);
+    };
+  }());
+}
+document.addEventListener('DOMContentLoaded', function () {
+  // Handle save tour updates
+  var saveButtons = document.querySelectorAll('.tour-save-button');
+  saveButtons.forEach(function (button) {
+    button.addEventListener('click', /*#__PURE__*/function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(e) {
+        var tourId, name, duration, price, difficulty, formData;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              e.preventDefault();
+              tourId = button.getAttribute('data-tour-id'); // Gather the updated data
+              name = document.getElementById("name-".concat(tourId)).value;
+              duration = document.getElementById("duration-".concat(tourId)).value;
+              price = document.getElementById("price-".concat(tourId)).value;
+              difficulty = document.getElementById("difficulty-".concat(tourId)).value; // Construct form data
+              formData = new FormData();
+              formData.append('name', name);
+              formData.append('duration', duration);
+              formData.append('price', price);
+              formData.append('difficulty', difficulty);
+
+              // Send the update request
+              _context8.next = 13;
+              return (0, _admin.adminUpdateTour)(formData, tourId);
+            case 13:
+              (0, _alert.showAlert)('success', 'Tour updated successfully!');
+            case 14:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }));
+      return function (_x8) {
+        return _ref8.apply(this, arguments);
+      };
+    }());
+  });
+
+  // Handle delete tour
+  var deleteButtons = document.querySelectorAll('.tour-delete-button');
+  deleteButtons.forEach(function (button) {
+    button.addEventListener('click', /*#__PURE__*/function () {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(e) {
+        var tourId;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              e.preventDefault();
+              tourId = button.getAttribute('data-tour-id'); // Confirm before deleting
+              if (!confirm('Are you sure you want to delete this tour?')) {
+                _context9.next = 6;
+                break;
+              }
+              _context9.next = 5;
+              return (0, _admin.adminDeleteTour)(tourId);
+            case 5:
+              (0, _alert.showAlert)('success', 'Tour deleted successfully!');
+            case 6:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9);
+      }));
+      return function (_x9) {
+        return _ref9.apply(this, arguments);
+      };
+    }());
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  // Save review handler
+  var saveButtons = document.querySelectorAll('.review-save-button');
+  saveButtons.forEach(function (button) {
+    button.addEventListener('click', /*#__PURE__*/function () {
+      var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(e) {
+        var reviewId, review, rating, data;
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              reviewId = e.target.dataset.reviewId;
+              review = document.querySelector("#review-".concat(reviewId)).value;
+              rating = document.querySelector("#rating-".concat(reviewId)).value;
+              data = {
+                review: review,
+                rating: rating
+              };
+              (0, _admin.adminUpdateReview)(data, reviewId);
+            case 5:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10);
+      }));
+      return function (_x10) {
+        return _ref10.apply(this, arguments);
+      };
+    }());
+  });
+
+  // Delete review handler
+  var deleteButtons = document.querySelectorAll('.review-delete-button');
+  deleteButtons.forEach(function (button) {
+    button.addEventListener('click', /*#__PURE__*/function () {
+      var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(e) {
+        var reviewId;
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
+            case 0:
+              reviewId = e.target.dataset.reviewId;
+              if (confirm('Are you sure you want to delete this review?')) {
+                (0, _admin.adminDeleteReview)(reviewId);
+              }
+            case 2:
+            case "end":
+              return _context11.stop();
+          }
+        }, _callee11);
+      }));
+      return function (_x11) {
+        return _ref11.apply(this, arguments);
+      };
+    }());
+  });
+});
+document.addEventListener('DOMContentLoaded', function () {
+  // Delete booking handler
+  var deleteButtons = document.querySelectorAll('.booking-delete-button');
+  deleteButtons.forEach(function (button) {
+    button.addEventListener('click', /*#__PURE__*/function () {
+      var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(e) {
+        var bookingId;
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
+            case 0:
+              bookingId = e.target.dataset.bookingId;
+              if (confirm('Are you sure you want to delete this booking?')) {
+                (0, _admin.adminDeleteBooking)(bookingId);
+              }
+            case 2:
+            case "end":
+              return _context12.stop();
+          }
+        }, _callee12);
+      }));
+      return function (_x12) {
+        return _ref12.apply(this, arguments);
+      };
+    }());
+  });
+});
+},{"./collection":"collection.js","./admin":"admin.js","./updateSettings":"updateSettings.js","./stripe":"stripe.js","./alert":"alert.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -13355,7 +14159,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53964" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54484" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

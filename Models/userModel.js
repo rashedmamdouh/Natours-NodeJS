@@ -42,6 +42,8 @@ const userSchema=new mongoose.Schema({
     passwordChangetAt:Date,
     encryptedResetToken:String,
     encryptedResetTokenExp:Date,
+
+    twoFactorCode: String,
 });
 
 
@@ -88,6 +90,7 @@ userSchema.methods.createResetTokenPassword=function(){
     return resetToken;
 };
 
+  
 // Create model Class
 const User=mongoose.model('User',userSchema);
 module.exports=User;

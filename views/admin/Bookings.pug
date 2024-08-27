@@ -1,0 +1,35 @@
+extends base
+
+block content
+  h1#bookings-header #{title}
+  
+  table#bookings-table
+    thead
+      tr
+        th#user-header User
+        th#tour-header Tour
+        th#price-header Price
+        th#paid-header Paid
+        th#actions-header Actions
+    tbody
+      each booking in bookings
+        tr
+          td
+            if booking.user
+              | #{booking.user.email}
+            else
+              | User No Longer Exist
+          td
+            if booking.tour
+              | #{booking.tour.name}
+            else
+              | No tour
+          td #{booking.price}
+          td
+            if booking.paid
+              span Paid
+            else
+              span Not Paid
+          td
+            button.btn.booking-delete-button(data-booking-id=`${booking._id}`) Delete
+

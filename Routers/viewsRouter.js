@@ -32,6 +32,12 @@ router.get(
     authController.protect,
     viewsController.getMyReviews
   );
+  
+router.get('/adminPanel',authController.protect,authController.restrictTo('admin'),viewsController.getadminPanel);
+router.get('/adminPanel/users',authController.protect,authController.restrictTo('admin'),viewsController.getUsersadminPanel);
+router.get('/adminPanel/tours',authController.protect,authController.restrictTo('admin'),viewsController.getToursadminPanel);
+router.get('/adminPanel/reviews',authController.protect,authController.restrictTo('admin'),viewsController.getReviewsadminPanel);
+router.get('/adminPanel/bookings',authController.protect,authController.restrictTo('admin'),viewsController.getBookingadminPanel);
 
 
 

@@ -1,4 +1,5 @@
 extends base
+
 block content
     main.main 
         .card-container
@@ -21,7 +22,11 @@ block content
                         .card__data
                             svg.card__icon
                                 use(xlink:href='/img/icons.svg#icon-calendar')
-                            span=tour.startDates[0].toLocaleString('en-us', {month:'long', year:'numeric'})
+                            //- Add a check to ensure the startDates array is not null or empty
+                            if tour.startDates && tour.startDates.length > 0
+                                span=tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+                            else
+                                span Not Available
                         .card__data
                             svg.card__icon
                                 use(xlink:href='/img/icons.svg#icon-flag')
@@ -31,8 +36,6 @@ block content
                                 use(xlink:href='/img/icons.svg#icon-user')
                             span=`${tour.maxGroupSize} People`
                         
-                            
-
                     .card__footer
                         p
                             span.card__footer-value=`$${tour.price}`
@@ -43,7 +46,3 @@ block content
                             | 
                             span.card__footer-text=`Rating (${tour.ratingsQuantity})`
                         a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
-
-                        
-
-

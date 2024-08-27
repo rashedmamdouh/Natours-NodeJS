@@ -12,36 +12,42 @@ exports.deleteOne=Model=>
         }
         return res.status(204).json({
             status:'success',
-            message:'Delete Done'
+            message:'Delete Done',
+            data:doc
         })  
     } catch (err) {
         next(new appError(err.message,404));
       }
 };
 
-exports.createOne=Model=>
-    async(req,res,next)=>{
-        try{
-       // console.log(req.body.user,req.body.tour)
-        const doc=await Model.create(req.body);
-        res.status(201).json({
-            status:'success',
-            message:"New Creation occured Successfully",
-            data:doc
-        })
+exports.createOne = Model => async (req, res, next) => {
+    try {
+     
+      // console.log(req.body)
+   
+      const doc = await Model.create(req.body);
+  
+      res.status(201).json({
+        status: 'success',
+        message: 'New Creation occurred Successfully',
+        data: doc
+      });
     } catch (err) {
-        next(new appError(err.message, 404));
-      }
-    };
+      next(new appError(err.message, 404));
+    }
+  };
     
 exports.updateOne=Model=>
+  
     async(req,res,next)=>{
     try{
        const doc= await Model.findByIdAndUpdate(req.params.id,req.body); //Update and return the Updated
+       
         res.status(200).json({ 
             status:'success',
             message:
-              "New Update occured Successfully"
+              "New Update occured Successfully",
+              data:doc
         })
     } catch (err) {
         next(new appError(err.message,404));
@@ -60,7 +66,7 @@ exports.getOne=(Model,popOptions)=>
                     }
                 res.status(200).json({
                     status: 'success',
-                    message:doc
+                    data:doc
                 });
             } catch (err) {
               next(new appError(err.message, 404));

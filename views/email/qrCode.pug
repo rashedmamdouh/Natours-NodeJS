@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title 2FA QR Code
+		style.
+			.qr {
+				display: block;
+				margin: 20px 0;
+				max-width: 100%;
+			}
+	body
+		h1 Hi #{firstName},
+		p Here is your 2FA QR Code. Scan it using your authenticator app to enable two-factor authentication.
+		img.qr(src=`#{url}`, alt='QR Code')
+		a(href=`#{url}`) Click here to scan your QR code
+		p
+			| If the image is not displayed, copy and paste this URL into your browser: 
+			a(href=`#{url}`) #{url}

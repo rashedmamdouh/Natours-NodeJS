@@ -11,8 +11,6 @@ const mongoSanitize=require('express-mongo-sanitize');
 const xssClean=require('xss-clean');
 const hpp=require('hpp');
 const path=require('path');
-const viewRouter=require('./Routers/viewsRouter');
-const bookingRouter=require('./Routers/bookingRouter');
 const cookieParser=require('cookie-parser')
 const compression=require('compression')
 const cors=require('cors')
@@ -124,10 +122,11 @@ app.use((req, res, next) => {
 //  
 //Controller Function ===> Add it to the Router MiddleWare ===> Add the middleware router in app.use()
 //Require our Routers
-tourRouter=require('./Routers/TourRouter')
-userRouter=require('./Routers/UserRouter')
-reviewRouter=require('./Routers/reviewRouter')
-
+const tourRouter=require('./Routers/TourRouter')
+const userRouter=require('./Routers/UserRouter')
+const reviewRouter=require('./Routers/reviewRouter')
+const viewRouter=require('./Routers/viewsRouter');
+const bookingRouter=require('./Routers/bookingRouter');
 
 //Attach our Routers to Specific Routes in the Middleware
 app.use('/',viewRouter)
@@ -135,7 +134,6 @@ app.use('/api/v1/tours',tourRouter)
 app.use('/api/v1/users',userRouter)
 app.use('/api/v1/reviews',reviewRouter)
 app.use('/api/v1/bookings', bookingRouter);
-
 
 //Router Handler
 app.all('*',(req,res,next)=>{

@@ -89,7 +89,7 @@ block content
                 if user
                     a.btn.btn--green.span-all-rows(href=`/ReviewForm/${tour.id}`) Add New Review Now
                 else 
-                    a.btn.btn--green.span-all-rows(href='/login') SignUp Login to add your Review
+                    a.btn.btn--green.span-all-rows(href='/signup') SignUp or Login to add your Review
 
     section.section-reviews
         .reviews
@@ -116,4 +116,4 @@ block content
                 if user
                     button.btn.btn--green.span-all-rows#book-tour(data-tour-Id=`${tour.id}`) Book tour now!
                 else 
-                    a.btn.btn--green.span-all-rows(href='/login') Login to Book a tour
+                    a.btn.btn--green.span-all-rows(href='/signup') SignUp or Login to Book a tour

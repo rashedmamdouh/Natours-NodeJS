@@ -175,3 +175,85 @@ exports.getMyReviews=async(req,res,next)=>{
             })
     }
 }
+
+exports.getadminPanel=async(req,res,next)=>{
+    try{
+        res.status(200).render('admin/adminPanel',{
+            title:"Admin Panel",
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+exports.getUsersadminPanel=async(req,res,next)=>{
+    try{
+        const users=await User.find();
+        res.status(200).render('admin/Users',{
+            title:"Users",
+            users
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+exports.getToursadminPanel=async(req,res,next)=>{
+    try{
+        const tours=await Tour.find();
+        const guides=await User.find({role:{$in:['guide','lead-guide']}});
+        res.status(200).render('admin/Tours',{
+            title:"Tours",
+            tours,
+            guides
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+exports.getReviewsadminPanel=async(req,res,next)=>{
+    try{
+        const reviews=await Review.find().populate({
+            path:'tour',
+            select:'name'
+        }).populate({
+            path:'user',
+            select:'name'
+        })
+        res.status(200).render('admin/Reviews',{
+            title:"Reviews",
+            reviews
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}
+
+exports.getBookingadminPanel=async(req,res,next)=>{
+    try{
+        const bookings=await Booking.find().populate({
+            path:'tour',
+            select:'name'
+        }).populate({
+            path:'user',
+            select:'name'
+        })
+        res.status(200).render('admin/Bookings',{
+            title:"Bookings",
+            bookings
+            })
+    }catch(err){
+        return res.status(400).render('error',{
+            msg:err.message
+            })
+    }
+}

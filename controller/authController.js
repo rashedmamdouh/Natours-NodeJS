@@ -7,136 +7,14 @@ const crypto=require('crypto');
 const Review=require('../Models/reviewModel');
 const Booking=require('../Models/bookingModel');
 const Tour=require('../Models/tourModel');
+const {createSendToken}=require('./CreateSendAuthToken')
+const OTPAuth = require("otpauth");
+const {encode} = require("hi-base32");
+const QRCode = require('qrcode');
 
 
 
-//jwt.sign({id:newUser._id},process.env.JWTsecretKey,{expiresIn:process.env.JWT_EXPIRES_IN})
-const loginToken=id=>{
-    return jwt.sign({id},process.env.JWTsecretKey,{expiresIn:process.env.JWT_EXPIRES_IN})
-}
 
-//Create JWT token (as Session carry the information of the user) to send to the user 
-const createSendToken=(user,statusCode,req,res)=>{
-    const token=loginToken(user._id)
-    const cookieOptions ={
-        expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN *24*60*60*1000),
-        httpOnly:true,
-        secure:req.secure || req.headers['x-forwarded-proto']==='https'
-             }
-    user.password=undefined //Hide the user from shown in the return
-    res.cookie('jwt',token,cookieOptions)
-    res.status(statusCode).json({
-        status:'success',
-        token,
-    data:{
-        user
-    }
-})
-}
-
-exports.logout=(req,res)=>{
-    res.cookie('jwt','loggedout',{
-        expires:new Date(Date.now()+10*1000),
-        httpOnly:true,
-});
-res.status(200).json({
-    status:'success'
-})
-}
-
-exports.signUp=async(req,res,next)=>{
-    try{
-        const newUser = await User.create({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            confirmPassword: req.body.confirmPassword
-          });
-        const url = `${req.protocol}://${req.get('host')}/me`;
-        //console.log(url);
-        await new Email(newUser, url).sendWelcome();
-        
-        
-        createSendToken(newUser,201,req,res)
-}   catch (err) {
-            next(new appError(err.message, 500));
-          }
-        
-    }
-
-exports.login=async(req,res,next)=>{
-    try{
-        //1) Check if the User enter Values
-        const {email,password}=req.body;
-        if(!email||!password){
-            return next(new appError("UserName and Password are must", 404))
-        }
-        
-        //2)Check the User Existence
-        const user=await User.findOne({email}).select('+password');
-        //console.log(await user.correctPassword(password,user.password))
-        if(!user || !(await user.correctPassword(password,user.password))){
-            return next(new appError("Incorrect Email or Password !", 404));
-        }
-        
-        createSendToken(user,200,req,res)
-
-}   catch (err) {
-            return next(new appError(err.message, 500));
-          }
-        
-    }
-    //Check session Signin Token Availability
-    //For authentication requests
-    exports.protect=async(req,res,next)=>{
-        try{
-            let token;
-            if (
-              req.headers.authorization &&
-              req.headers.authorization.startsWith('Bearer')
-            ) {
-              token = req.headers.authorization.split(' ')[1];
-            } else if (req.cookies.jwt) {
-              token = req.cookies.jwt;
-            }
-          
-            if (!token) {
-              return next(
-                new appError('You are not logged in! Please log in to get access.', 401)
-              );
-            }
-          
-            // 2) Verification token
-            const decoded = await promisify(jwt.verify)(token, process.env.JWTsecretKey);
-          
-            // 3) Check if user still exists
-            const currentUser = await User.findById(decoded.id);
-            if (!currentUser) {
-              return next(
-                new appError(
-                  'The user belonging to this token does no longer exist.',
-                  401
-                )
-              );
-            }
-          
-            // 4) Check if user changed password after the token was issued
-            if (currentUser.changedPasswordAfter(decoded.iat)) {
-              return next(
-                new AppError('User recently changed password! Please log in again.', 401)
-              );
-            }
-          
-            // GRANT ACCESS TO PROTECTED ROUTE
-            req.user = currentUser;
-            res.locals.user = currentUser;
-            next();
-
-    }   catch (err) {
-                return next(new appError(err.message, 500));
-              }
-            
-        }
 
         //For All Requests give identity
     exports.isLoggedIn = async (req, res, next) => {
@@ -305,3 +183,208 @@ exports.restrictTo=(...roles)=>{
         }
         next();
     }
+
+
+
+
+//Check session Signin Token Availability
+    //For authentication requests
+    exports.protect=async(req,res,next)=>{
+        try{
+            let token;
+            if (
+              req.headers.authorization &&
+              req.headers.authorization.startsWith('Bearer')
+            ) {
+              token = req.headers.authorization.split(' ')[1];
+            } else if (req.cookies.jwt) {
+              token = req.cookies.jwt;
+            }
+          
+            if (!token) {
+              return next(
+                new appError('You are not logged in! Please log in to get access.', 401)
+              );
+            }
+          
+            // 2) Verification token
+            const decoded = await promisify(jwt.verify)(token, process.env.JWTsecretKey);
+          
+            // 3) Check if user still exists
+            const currentUser = await User.findById(decoded.id);
+            if (!currentUser) {
+              return next(
+                new appError(
+                  'The user belonging to this token does no longer exist.',
+                  401
+                )
+              );
+            }
+          
+            // 4) Check if user changed password after the token was issued
+            if (currentUser.changedPasswordAfter(decoded.iat)) {
+              return next(
+                new AppError('User recently changed password! Please log in again.', 401)
+              );
+            }
+          
+            // GRANT ACCESS TO PROTECTED ROUTE
+            req.user = currentUser;
+            res.locals.user = currentUser;
+            next();
+
+    }   catch (err) {
+                return next(new appError(err.message, 500));
+              }
+            
+        }
+
+
+
+exports.logout=(req,res)=>{
+    res.cookie('jwt','loggedout',{
+        expires:new Date(Date.now()+10*1000),
+        httpOnly:true,
+});
+res.status(200).json({
+    status:'success'
+})
+}
+
+
+
+
+
+
+
+// exports.enable2fa = async (req, res, next) => {
+//     try {
+//         const user = await User.findById(req.user.id);
+//         if (!user) {
+//             return next(new appError('User not found', 404));
+//         }
+
+//         // Generate a secret key for the user
+//         const buffer = crypto.randomBytes(15);
+//         const base32_secret = encode(buffer).replace(/=/g, "").substring(0, 24);
+
+//         user.twoFactorCode = base32_secret;
+//         await user.save({ validateBeforeSave: false });
+
+//         // Generate a QR code URL for the user to scan
+//         const otp = new OTPAuth.TOTP({
+//             issuer: "MySite.com",
+//             label: "MySite",
+//             algorithm: "SHA1",
+//             digits: 6,
+//             secret: base32_secret,
+//             period:600
+//         });
+//         const otpauth_url = otp.toString();
+//         console.log(otpauth_url)
+//         QRCode.toDataURL(otpauth_url, async (err, url) => {
+//             if (err) {
+//                 return next(new appError("Error while generating QR Code", 500));
+//             }
+//             await new Email(user, url).sendQRCode();
+//         });
+//     } catch (err) {
+//         return next(new appError(err.message, 500));
+//     }
+// };
+
+
+// exports.verify2fa = async (req, res, next) => {
+//     try {
+//         const { email, twoFactorCode } = req.body;
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return next(new appError('User not found', 404));
+//         }
+
+//         const otp = new OTPAuth.TOTP({
+//             issuer: "MySite.com",
+//             label: `${user.email}`,
+//             algorithm: "SHA1",
+//             digits: 6,
+//             period: 600,
+//             secret: user.twoFactorCode,
+//         });
+
+//         const isValid = otp.validate({ token: twoFactorCode });
+
+//         console.log(`OTP Validation Result: ${isValid}`);
+//         console.log(`Secret Key: ${user.twoFactorCode}`);
+//         console.log(`Entered Code: ${twoFactorCode}`);
+
+//         if (!isValid) {
+//             return next(new appError('Invalid or expired 2FA code', 400));
+//         }
+
+//     } catch (err) {
+//         return next(new appError(err.message, 500));
+//     }
+// };
+
+
+
+
+
+exports.signUp = async (req, res, next) => {
+    try {
+        const newUser = await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword
+        });
+
+        // req.user = newUser;
+        // await this.enable2fa(req, res, next);
+
+        const url = `${req.protocol}://${req.get('host')}/me`;
+        await new Email(newUser, url).sendWelcome();
+
+        createSendToken(newUser, 200, req, res);  // Final response
+        return res.status(201).json({
+            status: 'success',
+        })
+        
+    } catch (err) {
+        next(new appError(err.message, 500));
+    }
+};
+
+exports.login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return next(new appError("Username and Password are required", 404));
+        }
+
+        const user = await User.findOne({ email }).select('+password');
+        if (!user || !(await user.correctPassword(password, user.password))) {
+            return next(new appError("Incorrect Email or Password!", 404));
+        }
+
+        // req.user = user;
+        // await this.verify2fa(req, res, next);
+
+        createSendToken(user, 200, req, res);  // Final response
+        return res.status(200).json({
+            status: 'success',
+        })
+
+    } catch (err) {
+        return next(new appError(err.message, 500));
+    }
+};
+
+
+
+
+
+
+
+
+
